@@ -7,6 +7,7 @@ enum sofle_layers {
     _LOWER,
     _RAISE,
     _ADJUST,
+    _PINKY
 };
 
 enum custom_keycodes {
@@ -15,6 +16,7 @@ enum custom_keycodes {
     KC_LOWER,
     KC_RAISE,
     KC_ADJUST,
+    KC_PINKY,
     KC_PRVWD,
     KC_NXTWD,
     KC_LSTRT,
@@ -42,8 +44,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT(
   KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_GRV,
-  KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
-  KC_ESC,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_ENT,
+  KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_DEL,
+  KC_PINKY,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_ENT,
   KC_TAB,   KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,     XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
                  KC_LALT, KC_LGUI, KC_LCTRL,   KC_SPC, KC_LOWER,      KC_RAISE,  KC_LSFT, KC_BSPC, KC_RGUI, KC_RCTRL
 ),
@@ -132,7 +134,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX , XXXXXXX,CG_TOGG, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
-  )
+  ),
+  [_PINKY] = LAYOUT(
+  _______, _______ , _______ , _______ , _______ , _______,                           _______,  _______  , _______,  _______ ,  _______ ,_______,
+  _______, _______,  KC_LPRN,  KC_RPRN,  KC_DQT , _______,                      _______, KC_HOME, KC_UP  , KC_END, _______, _______,
+  _______, _______,  KC_LCBR,  KC_RCBR,  KC_EQL , KC_GRV,                      _______,  KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+  _______, _______,  KC_LBRC,  KC_RBRC,  KC_QUOT, _______, _______,       _______,  _______, _______, _______, _______,   _______, _______,
+                         _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
+  ) 
 };
 
 #ifdef OLED_ENABLE
@@ -185,6 +194,9 @@ static void print_status_narrow(void) {
         case _ADJUST:
             oled_write_P(PSTR("Adj\n"), false);
             break;
+        case _PINKY:
+            oled_write_P(PSTR("Pinky"), false);
+            break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
     }
@@ -232,6 +244,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             }
             return false;
+        case KC_PINKY:
+          if (record->event.pressed) {
+              layer_on(_PINKY);
+              update_tri_layer(_LOWER, _RAISE, _ADJUST);
+          } else {
+            layer_off(_PINKY);
+            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+          }
+          return false;
         case KC_RAISE:
             if (record->event.pressed) {
                 layer_on(_RAISE);
