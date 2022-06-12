@@ -7,7 +7,8 @@ enum sofle_layers {
     _LOWER,
     _RAISE,
     _ADJUST,
-    _PINKY
+    _PINKY,
+    _GMS
 };
 
 enum custom_keycodes {
@@ -17,6 +18,7 @@ enum custom_keycodes {
     KC_RAISE,
     KC_ADJUST,
     KC_PINKY,
+    KC_GMS,
     KC_PRVWD,
     KC_NXTWD,
     KC_LSTRT,
@@ -24,6 +26,13 @@ enum custom_keycodes {
     KC_DLINE
 };
 
+enum {
+  TD_GRV_GMS = 0
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_GRV_GMS] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_GRV, _GMS)
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -43,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT(
-  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_GRV,
+  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  TD(TD_GRV_GMS),
   KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_DEL,
   KC_PINKY,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_ENT,
   KC_TAB,   KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,     XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
@@ -131,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
   XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   RESET  , XXXXXXX,KC_QWERTY,KC_COLEMAK,CG_TOGG,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX , XXXXXXX,CG_TOGG, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX,CG_TOGG, XXXXXXX,    XXXXXXX,  _______  ,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
   ),
@@ -141,7 +150,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______,  KC_LCBR,  KC_RCBR,  KC_EQL , KC_GRV,                      _______,  KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
   _______, _______,  KC_LBRC,  KC_RBRC,  KC_QUOT, _______, _______,       _______,  _______, _______, _______, _______,   _______, _______,
                          _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
-  ) 
+  ),
+  [_GMS] = LAYOUT(
+  KC_GRV , _______ , KC_1  ,  KC_2   ,  KC_3   , KC_4    ,                           _______,  _______  , _______,  _______ ,  _______ ,TD(TD_GRV_GMS),
+  KC_ESC , KC_TAB,   KC_Q  ,  KC_W   ,  KC_K   , KC_S    ,                      _______, KC_HOME, KC_UP  , KC_END, _______, _______,
+  KC_F   , KC_LSFT,  KC_A  ,  KC_D   ,  KC_V   , KC_E    ,                      _______,  KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+  _______, _______,  KC_Z  ,  KC_X   ,  KC_C   , KC_B    , _______,       _______,  _______, _______, _______, _______,   _______, _______,
+                         _______, _______, KC_LCTRL, KC_SPC, KC_G ,       KC_RAISE, _______, _______, _______, _______
+  )
 };
 
 #ifdef OLED_ENABLE
@@ -197,6 +213,9 @@ static void print_status_narrow(void) {
         case _PINKY:
             oled_write_P(PSTR("Pinky"), false);
             break;
+        case _GMS:
+          oled_write_P(PSTR("Games"), false);
+          break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
     }
@@ -250,6 +269,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               update_tri_layer(_LOWER, _RAISE, _ADJUST);
           } else {
             layer_off(_PINKY);
+            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+          }
+          return false;
+        case KC_GMS:
+          if (record->event.pressed) {
+              layer_on(_GMS);
+              update_tri_layer(_LOWER, _RAISE, _ADJUST);
+          } else {
+            layer_off(_GMS);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
           return false;
