@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef ENCODER_RESOLUTION
+#    undef ENCODER_RESOLUTION
+#endif
+#define ENCODER_RESOLUTION 4
 // #define PERMISSIVE_HOLD
 // #ifdef TAPPING_TERM
 // #    undef TAPPING_TERM
