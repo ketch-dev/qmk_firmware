@@ -3,8 +3,8 @@
 enum sofle_layers {
 	_QWERTY,
 	_DHM,
-  _QWERTYGAMES,
-	_GAMES,
+  _QWERTY_GMS,
+	_DHM_GMS,
 	_SYM,
 	_EXTEND,
 };
@@ -12,8 +12,8 @@ enum sofle_layers {
 enum custom_keycodes {
 	KC_QWERTY = SAFE_RANGE,
 	KC_DHM,
-  KC_QWERTYGAMES,
-	KC_GAMES,
+  KC_QWERTY_GMS,
+	KC_DHM_GMS,
 	KC_SYM,
 	KC_EXTEND,
 };
@@ -33,19 +33,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_LSFT,   KC_Z,   KC_X,    KC_C,    KC_D,    KC_V, HYPR(KC_K),     HYPR(KC_H), KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
 									KC_LALT, KC_LSFT, KC_LGUI, KC_LCTL, KC_SYM,      KC_EXTEND,  KC_SPC, KC_LSFT, KC_LALT, KC_LGUI
 ),
-[_QWERTYGAMES] = LAYOUT(
+[_QWERTY_GMS] = LAYOUT(
   KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_GRV,
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_DEL,
   KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_ENT,
   KC_J  ,   KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, HYPR(KC_K),     HYPR(KC_H), KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-                 KC_L   , KC_U    , KC_Y   , KC_LCTL, KC_LALT,      KC_EXTEND,  KC_SPC, KC_LSFT, KC_LALT, KC_RGUI
+                 KC_L, KC_U, KC_Y, KC_LCTL, KC_LALT,                 KC_EXTEND,  KC_SPC, KC_LSFT, KC_LALT, KC_RGUI
 ),
-[_GAMES] = LAYOUT(
+[_DHM_GMS] = LAYOUT(
 	KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   KC_GRV,
 	KC_TAB,   KC_J,   KC_Q,    KC_W,    KC_E,    KC_R,                     KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,  KC_DEL,
 	KC_L  ,   KC_LSFT,KC_A,    KC_S,    KC_D,    KC_F,                     KC_M,    KC_N,    KC_E,    KC_I,    KC_O,  KC_ENT,
 	KC_U  ,   KC_LCTL,KC_Z,    KC_X,    KC_C,    KC_V, HYPR(KC_K),     HYPR(KC_H),KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
-									KC_Y   , KC_M   , KC_N   , KC_SPC, KC_I,      KC_EXTEND,  KC_SPC, KC_LSFT, KC_LALT, KC_RGUI
+								   KC_Y, KC_M, KC_N, KC_SPC, KC_I,     KC_EXTEND,  KC_SPC, KC_LSFT, KC_LALT, KC_RGUI
 ),
 [_SYM] = LAYOUT(
   _______, KC_F1   , KC_F2  , KC_F3  , KC_F4  ,KC_F5  ,                       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
 [_EXTEND] = LAYOUT(
-	_______, _______, KC_QWERTY, DF(KC_DHM), DF(KC_QWERTYGAMES) ,DF(KC_GAMES),                           _______,  _______  , _______,  _______ ,  _______ ,_______,
+	_______, _______, KC_QWERTY, DF(KC_DHM), DF(KC_QWERTY_GMS) ,DF(KC_DHM_GMS),                           _______,  _______  , _______,  _______ ,  _______ ,_______,
 	_______, _______,  KC_ESC,  A(KC_LEFT),  A(KC_RGHT) , _______,                      KC_PGUP, KC_HOME, KC_UP  , KC_END, KC_DEL, KC_BSPC,
 	_______, _______,  KC_LALT,  KC_LSFT,  KC_LCTL , _______,                      KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT, KC_ESC, KC_MENU,
 	_______, _______,  _______,  _______,  _______, _______, _______,       _______,  KC_CAPS, KC_PSCR, _______, _______,   KC_INS, _______,
@@ -77,11 +77,11 @@ static void print_status_narrow(void) {
 				case _DHM:
           oled_write_P(PSTR("DHm"), false);
           break;
-        case _QWERTYGAMES:
-          oled_write_P(PSTR("QwrtGms"), false);
+        case _QWERTY_GMS:
+          oled_write_P(PSTR("QwertyGms"), false);
           break;
-        case _GAMES:
-          oled_write_P(PSTR("Games"), false);
+        case _DHM_GMS:
+          oled_write_P(PSTR("DHmGms"), false);
           break;
         case _SYM:
 					oled_write_P(PSTR("Symb"), false);
