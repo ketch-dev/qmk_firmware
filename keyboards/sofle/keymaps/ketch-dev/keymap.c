@@ -64,11 +64,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             _______ ,_______ ,_______ ,_______ ,_______ ,   /**/   _______ ,_______ ,_______ ,_______ ,_______
     ),
     [_EXTEND] = LAYOUT(
-        _______ ,_______ ,KC_QWERTY ,DF(KC_DHM) ,DF(KC_MAP_GMS) ,DF(KC_DHM_GMS) ,               /**/            _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
-        _______ ,_______ ,KC_ESC    ,A(KC_LEFT) ,A(KC_RGHT)     ,_______        ,               /**/            KC_PGUP ,KC_HOME ,KC_UP   ,KC_END  ,KC_DEL  ,KC_BSPC ,
-        _______ ,_______ ,KC_LALT   ,KC_LSFT    ,KC_LCTL        ,DF(KC_MAP_GMS) ,               /**/            KC_PGDN ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_ESC  ,KC_MENU ,
-        _______ ,_______ ,_______   ,_______    ,_______        ,_______        ,_______    ,   /**/   _______ ,KC_CAPS ,KC_PSCR ,_______ ,_______ ,KC_INS  ,_______ ,
-                          _______   ,_______    ,_______        ,KC_QWERTY      ,DF(KC_DHM) ,   /**/   _______ ,_______ ,_______ ,_______ ,_______
+        _______ ,_______ ,KC_QWERTY ,DF(KC_DHM) ,DF(KC_MAP_GMS) ,DF(KC_DHM_GMS) ,            /**/            _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
+        _______ ,_______ ,KC_ESC    ,A(KC_LEFT) ,A(KC_RGHT)     ,_______        ,            /**/            KC_PGUP ,KC_HOME ,KC_UP   ,KC_END  ,KC_DEL  ,KC_BSPC ,
+        _______ ,_______ ,KC_LALT   ,KC_LSFT    ,KC_LCTL        ,_______        ,            /**/            KC_PGDN ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_ESC  ,KC_MENU ,
+        _______ ,_______ ,_______   ,_______    ,_______        ,_______        ,_______ ,   /**/   _______ ,KC_CAPS ,KC_PSCR ,_______ ,_______ ,KC_INS  ,_______ ,
+                          _______   ,_______    ,_______        ,_______        ,_______ ,   /**/   _______ ,_______ ,_______ ,_______ ,_______
     ),
 };
 
