@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#define LT_EXTEND_ESC LT(KC_EXTEND, KC_ESC)
 
 enum sofle_layers {
     _QWERTY,
@@ -26,35 +27,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB  ,KC_Q ,KC_W    ,KC_E    ,KC_R    ,KC_T           ,              /**/                           KC_Y   ,KC_U    ,KC_I    ,KC_O   ,KC_P    ,KC_DEL  ,
         KC_BSPC ,KC_A ,KC_S    ,KC_D    ,KC_F    ,KC_G           ,              /**/                           KC_H   ,KC_J    ,KC_K    ,KC_L   ,KC_SCLN ,KC_ENT  ,
         KC_LSFT ,KC_Z ,KC_X    ,KC_C    ,KC_V    ,KC_B           ,HYPR(KC_K),   /**/   HYPR(KC_H)             ,KC_N   ,KC_M    ,KC_COMM ,KC_DOT ,KC_SLSH ,KC_RSFT ,
-                       KC_LALT ,KC_LSFT ,KC_LGUI ,LCTL_T(KC_F14) ,KC_SYM    ,   /**/   LT(KC_EXTEND, KC_ESC)  ,KC_SPC ,KC_LSFT ,KC_LALT ,KC_RGUI
+                       KC_LALT ,KC_LSFT ,KC_LGUI ,LCTL_T(KC_F14) ,KC_SYM    ,   /**/   LT_EXTEND_ESC  ,KC_SPC ,KC_LSFT ,KC_LALT ,KC_RGUI
     ),
     [_DHM] = LAYOUT(
         KC_ESC  ,KC_1 ,KC_2    ,KC_3    ,KC_4    ,KC_5           ,              /**/                           KC_6   ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_GRV  ,
         KC_TAB  ,KC_Q ,KC_W    ,KC_F    ,KC_P    ,KC_B           ,              /**/                           KC_J   ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_DEL  ,
         KC_BSPC ,KC_A ,KC_R    ,KC_S    ,KC_T    ,KC_G           ,              /**/                           KC_M   ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,KC_ENT  ,
         KC_LSFT ,KC_Z ,KC_X    ,KC_C    ,KC_D    ,KC_V           ,HYPR(KC_K),   /**/   HYPR(KC_H)             ,KC_K   ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSFT ,
-                       KC_LALT ,KC_LSFT ,KC_LGUI ,LCTL_T(KC_F14) ,KC_SYM    ,   /**/   LT(KC_EXTEND, KC_ESC)  ,KC_SPC ,KC_LSFT ,KC_LALT ,KC_LGUI
+                       KC_LALT ,KC_LSFT ,KC_LGUI ,LCTL_T(KC_F14) ,KC_SYM    ,   /**/   LT_EXTEND_ESC  ,KC_SPC ,KC_LSFT ,KC_LALT ,KC_LGUI
     ),
     [_MAP_GMS] = LAYOUT(
         KC_ESC    ,KC_1      ,KC_2      ,KC_3      ,KC_4      ,KC_5      ,              /**/                           KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_GRV  ,
         KC_TAB    ,KC_F/*T*/ ,KC_Q/*Q*/ ,KC_W/*W*/ ,KC_K/*E*/ ,KC_S/*R*/ ,              /**/                           KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,KC_DEL  ,
         KC_G/*G*/ ,KC_LSFT   ,KC_A/*A*/ ,KC_D/*S*/ ,KC_V/*D*/ ,KC_E/*F*/ ,              /**/                           KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
         KC_T/*B*/ ,KC_LCTL   ,KC_Z/*Z*/ ,KC_X/*X*/ ,KC_C/*C*/ ,KC_B/*V*/ ,HYPR(KC_K),   /**/   HYPR(KC_H)             ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSFT ,
-                              KC_O/*Y*/ ,KC_M/*H*/ ,KC_LALT   ,KC_SPC    ,KC_J/*N*/ ,   /**/   LT(KC_EXTEND, KC_ESC)  ,KC_SPC  ,KC_LSFT ,KC_LALT ,KC_RGUI
+                              KC_O/*Y*/ ,KC_M/*H*/ ,KC_LALT   ,KC_SPC    ,KC_J/*N*/ ,   /**/   LT_EXTEND_ESC  ,KC_SPC  ,KC_LSFT ,KC_LALT ,KC_RGUI
     ),
     [_QWERTY_GMS] = LAYOUT(
         KC_ESC   ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5   ,              /**/                           KC_6   ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_GRV  ,
         KC_TAB   ,KC_J    ,KC_Q    ,KC_W    ,KC_E    ,KC_R   ,              /**/                           KC_Y   ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,KC_DEL  ,
         KC_L     ,KC_LSFT ,KC_A    ,KC_S    ,KC_D    ,KC_F   ,              /**/                           KC_H   ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
         KC_U     ,KC_LCTL ,KC_Z    ,KC_X    ,KC_C    ,KC_V   ,HYPR(KC_K),   /**/   HYPR(KC_H)             ,KC_N   ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSFT ,
-                           KC_Y    ,KC_M    ,KC_N    ,KC_SPC ,      KC_I,   /**/   LT(KC_EXTEND, KC_ESC)  ,KC_SPC ,KC_LSFT ,KC_LALT ,KC_RGUI
+                           KC_Y    ,KC_M    ,KC_N    ,KC_SPC ,      KC_I,   /**/   LT_EXTEND_ESC  ,KC_SPC ,KC_LSFT ,KC_LALT ,KC_RGUI
     ),
     [_DHM_GMS] = LAYOUT(
         KC_ESC ,KC_1    ,KC_2 ,KC_3 ,KC_4 ,KC_5   ,              /**/                           KC_6   ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_GRV  ,
         KC_TAB ,KC_J    ,KC_Q ,KC_W ,KC_E ,KC_R   ,              /**/                           KC_J   ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_DEL  ,
         KC_L   ,KC_LSFT ,KC_A ,KC_S ,KC_D ,KC_F   ,              /**/                           KC_M   ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,KC_ENT  ,
         KC_U   ,KC_LCTL ,KC_Z ,KC_X ,KC_C ,KC_V   ,HYPR(KC_K),   /**/   HYPR(KC_H)             ,KC_K   ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSFT ,
-                         KC_Y ,KC_M ,KC_N ,KC_SPC ,     KC_I ,   /**/   LT(KC_EXTEND, KC_ESC)  ,KC_SPC ,KC_LSFT ,KC_LALT ,KC_RGUI
+                         KC_Y ,KC_M ,KC_N ,KC_SPC ,     KC_I ,   /**/   LT_EXTEND_ESC  ,KC_SPC ,KC_LSFT ,KC_LALT ,KC_RGUI
     ),
     [_SYM] = LAYOUT(
         _______ ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,              /**/            KC_F6   ,KC_F7   ,KC_F8   ,KC_F9      ,KC_F10  ,KC_F11  ,
