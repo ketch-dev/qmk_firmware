@@ -87,7 +87,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef OLED_ENABLE
-
 bool should_process_keypress(void) { return true; }
 
 static void print_status_narrow(void) {
@@ -147,17 +146,18 @@ bool oled_task_user(void) {
 
     return false;
 }
-
 #endif
-bool handle_mod_tap_oneshot(bool allow_mods, uint16_t keycode, keyrecord_t *record, uint16_t hold_mod, uint16_t oneshot_mods) {
+
+bool handle_mod_tap_oneshot(bool allow_mods, uint16_t keycode, keyrecord_t *record, uint16_t mt_key, bool is_layer, uint16_t oneshot_mods) {
     static uint16_t timer;
     clear_oneshot_mods();
 
     if (record->event.pressed) {
-        timer = timer_read(); 
-        register_code(hold_mod); 
+        timer = timer_read();
+        is_layer ? layer_on(mt_key) : register_code(mt_key); 
     } else {
-        unregister_code(hold_mod);
+        is_layer ? layer_off(mt_key) : unregister_code(mt_key);
+
         if (allow_mods && timer_elapsed(timer) < TAPPING_TERM) {
             add_oneshot_mods(oneshot_mods);
         }
@@ -165,25 +165,6 @@ bool handle_mod_tap_oneshot(bool allow_mods, uint16_t keycode, keyrecord_t *reco
     return false; 
 }
 
-
-bool handle_layer_tap_oneshot(bool allow_mods, uint16_t keycode, keyrecord_t *record, uint8_t layer, uint16_t oneshot_mods) {
-    static uint16_t timer;
-    clear_oneshot_mods();
-
-    if (record->event.pressed) {
-        timer = timer_read(); 
-        layer_on(layer); 
-    } else {
-        layer_off(layer);
-        if (allow_mods && timer_elapsed(timer) < TAPPING_TERM) {
-            add_oneshot_mods(oneshot_mods);
-        }
-    }
-    return false; 
-}
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     return update_tri_layer_state(state, _SYM, _ARROWS, _ADJUST);
-// }
 bool prev_pressed = false;
 bool curr_pressed = false;
 
@@ -239,36 +220,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case KC_MT_LSFT_CS:
-            return handle_mod_tap_oneshot(allow_mods, keycode, record, KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));    
+            return handle_mod_tap_oneshot(allow_mods, keycode, record, KC_LSFT, false, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));    
 
         case KC_MT_CTRL_MEH:
-            return handle_mod_tap_oneshot(allow_mods, keycode, record, KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
+            return handle_mod_tap_oneshot(allow_mods, keycode, record, KC_LCTL, false, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
         
         case KC_MT_GUI_HYPR:
-            return handle_mod_tap_oneshot(allow_mods, keycode, record, KC_LGUI, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI)); 
+            return handle_mod_tap_oneshot(allow_mods, keycode, record, KC_LGUI, false, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI)); 
     }
 
     return true;
 }
 
 #ifdef ENCODER_ENABLE
-
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLD);
-        } else {
-            tap_code(KC_VOLU);
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
-    }
-
+    tap_code(clockwise ? KC_VOLD : KC_VOLU);
     return false;
 }
-
 #endif
