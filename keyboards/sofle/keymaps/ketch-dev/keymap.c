@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#define LT_SYM_ESC LT(KC_SYM, KC_ESC)
 #define LT_GMS_NUMS_ESC LT(KC_GMS_NUMS, KC_ESC)
 
 enum sofle_layers {
@@ -27,19 +26,23 @@ enum custom_keycodes {
     KC_MT_GUI_HYPR,
 };
 
+enum tap_dance {
+    TD_ARROWS_SYM,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-        _______ ,_______ ,_______ ,_______       ,_______        ,_______        ,             /**/             _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
-        _______ ,KC_Q    ,KC_W    ,KC_E          ,KC_R           ,KC_T           ,             /**/             KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,_______ ,
-        KC_BSPC ,KC_A    ,KC_S    ,KC_D          ,KC_F           ,KC_G           ,             /**/             KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
-        KC_TAB  ,KC_Z    ,KC_X    ,KC_C          ,KC_V           ,KC_B           ,HYPR(KC_K) , /**/ HYPR(KC_H) ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_DEL  ,
-                         _______  ,KC_MT_LSFT_CS ,KC_MT_GUI_HYPR ,KC_MT_CTRL_MEH ,LT_SYM_ESC , /**/ KC_ARROWS  ,KC_SPC  ,KC_LALT ,KC_FS   ,_______
+        _______    ,_______ ,_______ ,_______ ,_______        ,_______        ,                /**/                    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
+        KC_TAB     ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T           ,                /**/                    KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,_______ ,
+        KC_ESC     ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G           ,                /**/                    KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
+        KC_BSPC    ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B           ,HYPR(KC_K)    , /**/ HYPR(KC_H)        ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_DEL  ,
+                            _______  ,_______ ,KC_MT_GUI_HYPR ,KC_MT_CTRL_MEH ,KC_MT_LSFT_CS , /**/ TD(TD_ARROWS_SYM) ,KC_SPC  ,_______ ,_______ ,_______
     ),
     [_DHM] = LAYOUT(
         _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,          /**/          _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
         _______ ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_B    ,          /**/          KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,_______ ,
         _______ ,KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_G    ,          /**/          KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,_______ ,
-        _______ ,KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V    ,_______ , /**/ _______ ,KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,_______ ,
+        _______ ,KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V    ,_______ , /**/ _______ ,KC_K    ,KC_H    ,_______ ,_______ ,_______ ,_______ ,
                           _______ ,_______ ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,_______ ,_______ ,_______
     ),
     [_MAP_GMS] = LAYOUT(
@@ -64,99 +67,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           _______ ,_______ ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,_______ ,_______ ,_______
     ),
     [_SYM] = LAYOUT(
-        _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,          /**/          _______ ,_______ ,_______ ,_______    ,_______ ,_______ ,
-        _______ ,KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,          /**/          KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_LABK    ,KC_RABK ,_______ ,
-        _______ ,KC_QUES ,KC_EQL  ,KC_LCBR ,KC_RCBR ,_______ ,          /**/          KC_GRV  ,KC_QUOT ,KC_DQT  ,LSFT(KC_P) ,KC_P    ,_______ ,
-        _______ ,KC_LBRC ,KC_RBRC ,KC_LPRN ,KC_RPRN ,KC_TILD ,_______ , /**/ _______ ,KC_PLUS ,KC_MINS ,KC_UNDS ,KC_PIPE    ,KC_BSLS ,_______ ,
+        _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,          /**/          _______ ,_______ ,_______ ,_______ ,_______    ,_______ ,
+        _______ ,KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,          /**/          KC_CIRC ,KC_AMPR ,KC_ASTR ,_______ ,LSFT(KC_P) ,_______ ,
+        _______ ,KC_QUES ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LABK ,          /**/          KC_RABK ,KC_RPRN ,KC_RCBR ,KC_RBRC ,KC_UNDS    ,_______ ,
+        _______ ,KC_TILD ,_______ ,KC_QUOT  ,KC_DQT ,KC_GRV  ,_______ , /**/ _______ ,KC_PLUS ,KC_MINS ,KC_EQL  ,KC_PIPE ,KC_BSLS    ,_______ ,
                           _______ ,_______ ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,_______ ,_______ ,_______
     ),
     [_ARROWS] = LAYOUT(
-        _______ ,_______ ,_______   ,_______    ,_______        ,_______           ,          /**/          _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
-        _______ ,_______ ,KC_QWERTY ,DF(KC_DHM) ,DF(KC_MAP_GMS) ,DF(KC_QWERTY_GMS) ,          /**/          KC_PGUP ,KC_HOME ,KC_UP   ,KC_END  ,KC_PSCR ,_______ ,
-        _______ ,_______ ,KC_LALT   ,KC_LSFT    ,KC_LCTL        ,_______           ,          /**/          KC_PGDN ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_CAPS ,KC_INS  ,
-        _______ ,KC_1    ,KC_2      ,KC_3       ,KC_4           ,KC_5              ,_______ , /**/ _______ ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_MENU ,
-                          _______   ,_______    ,_______        ,_______           ,_______ , /**/ _______ ,_______ ,_______ ,_______ ,_______
+        _______ ,_______   ,_______ ,_______ ,_______ ,_______           ,          /**/          _______    ,_______  ,_______ ,_______ ,_______ ,_______ ,
+        _______ ,KC_1      ,KC_2    ,KC_3    ,KC_4    ,KC_5              ,          /**/          KC_6       ,KC_7     ,KC_8    ,KC_9    ,KC_0    ,_______ ,
+        _______ ,_______   ,_______ ,_______ ,_______ ,DF(KC_MAP_GMS)    ,          /**/          KC_QWERTY  ,KC_LEFT  ,KC_DOWN ,KC_UP   ,KC_RGHT ,_______ ,
+        _______ ,KC_CAPS   ,KC_PSCR ,KC_INS  ,_______ ,DF(KC_QWERTY_GMS) ,_______ , /**/ _______ ,DF(KC_DHM) ,KC_HOME  ,KC_PGDN ,KC_PGUP ,KC_END  ,_______ ,
+                                     _______ ,_______ ,_______ ,_______  ,KC_FS   , /**/ _______ ,_______    ,_______  ,_______ ,_______
     ),
     [_FS] = LAYOUT(
         _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,          /**/          _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
-        _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,          /**/          _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
-        _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,          /**/          _______ ,_______ ,_______ ,_______ ,_______ ,KC_F12  ,
-        _______ ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,_______ , /**/ _______ ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,
+        _______ ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,          /**/          KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,_______ ,
+        _______ ,KC_LGUI ,KC_LALT ,KC_LSFT ,KC_LCTL ,_______ ,          /**/          _______ ,KC_LCTL ,KC_LSFT ,KC_LALT ,KC_LGUI ,_______ ,
+        _______ ,KC_F11  ,KC_F12  ,_______ ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
                           _______ ,_______ ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,_______ ,_______ ,_______
     ),
 };
 
-#ifdef OLED_ENABLE
-bool should_process_keypress(void) { return true; }
+bool prev_prev_pressed = false;
+bool prev_pressed = false;
+bool curr_pressed = false;
 
-static void print_status_narrow(void) {
-    oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("LAYER"), false);
+uint16_t prev_prev_keycode = KC_NO;
+uint16_t prev_keycode = KC_NO;
+uint16_t curr_keycode = KC_NO;
 
-    switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR("Qwrt"), false);
-            break;
-
-        case _DHM:
-            oled_write_P(PSTR("DHm"), false);
-            break;
-
-        case _MAP_GMS:
-            oled_write_P(PSTR("MapGms"), false);
-            break;
-
-        case _QWERTY_GMS:
-            oled_write_P(PSTR("QwertyGms"), false);
-            break;
-
-        case _GMS_NUMS:
-            oled_write_P(PSTR("GmsNums"), false);
-            break;
-
-        case _SYM:
-            oled_write_P(PSTR("Symb"), false);
-            break;
-
-        case _ARROWS:
-            oled_write_P(PSTR("Arrows"), false);
-            break;
-
-        case _FS:
-            oled_write_P(PSTR("Fs"), false);
-            break;
-
-        default:
-            oled_write_ln_P(PSTR("Undef"), false);
-    }
-}
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!is_keyboard_master()) {
-        return OLED_ROTATION_270;
-    }
-
-    return rotation;
-}
-
-bool oled_task_user(void) {
-    if (!is_keyboard_master()) {
-      print_status_narrow();
-    }
-
-    return false;
-}
-#endif
-
-bool handle_mod_tap_oneshot(bool allow_mods, uint16_t keycode, keyrecord_t *record, uint16_t mt_key, bool is_layer, uint16_t oneshot_mods) {
+bool handle_mod_tap_oneshot(uint16_t mt_key, uint16_t oneshot_mods) {
     static uint16_t timer;
+    bool allow_mods = prev_keycode == curr_keycode && prev_pressed;
     clear_oneshot_mods();
 
-    if (record->event.pressed) {
+    if (curr_pressed) {
         timer = timer_read();
-        is_layer ? layer_on(mt_key) : register_code(mt_key); 
+        register_code(mt_key); 
     } else {
-        is_layer ? layer_off(mt_key) : unregister_code(mt_key);
+        unregister_code(mt_key);
 
         if (allow_mods && timer_elapsed(timer) < TAPPING_TERM) {
             add_oneshot_mods(oneshot_mods);
@@ -165,20 +115,43 @@ bool handle_mod_tap_oneshot(bool allow_mods, uint16_t keycode, keyrecord_t *reco
     return false; 
 }
 
-bool prev_pressed = false;
-bool curr_pressed = false;
+bool handle_layer_tap_oneshot(uint16_t lt_key, uint16_t oneshot_layer) {
+    static uint16_t timer;
 
-uint16_t prev_keycode = KC_NO;
-uint16_t curr_keycode = KC_NO;
+    bool allow_layer = prev_keycode == curr_keycode && prev_pressed;
+
+
+        if (curr_pressed) {
+            timer = timer_read();
+            layer_on(lt_key);
+        } else {
+            layer_off(lt_key);
+
+            if (allow_layer && timer_elapsed(timer) < TAPPING_TERM) {
+                set_oneshot_layer(oneshot_layer, ONESHOT_START);
+            }
+        }
+
+    return false;
+
+}
+
+bool handle_layer_on_off(enum sofle_layers layer) {
+    curr_pressed ? layer_on(layer) : layer_off(layer);
+    return false;
+}
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    clear_oneshot_layer_state(ONESHOT_PRESSED);
+
+    prev_prev_pressed = prev_pressed;
     prev_pressed = curr_pressed;
     curr_pressed = record->event.pressed;
 
+    prev_prev_keycode = prev_keycode;
     prev_keycode = curr_keycode;
     curr_keycode = keycode;
-
-    bool allow_mods = prev_keycode == curr_keycode && prev_pressed;
 
     switch (keycode) {
         case KC_QWERTY:
@@ -188,49 +161,92 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         
         case KC_GMS_NUMS:
-            if (record->event.pressed) {
-                layer_on(_GMS_NUMS);
-            } else {
-                layer_off(_GMS_NUMS);
-            }
-            return false;
+            return handle_layer_on_off(_GMS_NUMS);
 
         case KC_SYM:
-            if (record->event.pressed) {
-                layer_on(_SYM);
-            } else {
-                layer_off(_SYM);
-            }
-            return false;
+            return handle_layer_on_off(_SYM);
 
         case KC_ARROWS:
-            if (record->event.pressed) {
-                layer_on(_ARROWS);
-            } else {
-                layer_off(_ARROWS);
-            }
-            return false;
+            return handle_layer_on_off(_ARROWS);
         
         case KC_FS:
-            if (record->event.pressed) {
-                layer_on(_FS);
-            } else {
-                layer_off(_FS);
-            }
-            return false;
+            return handle_layer_on_off(_FS);
 
         case KC_MT_LSFT_CS:
-            return handle_mod_tap_oneshot(allow_mods, keycode, record, KC_LSFT, false, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));    
+            return handle_mod_tap_oneshot(KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));    
 
         case KC_MT_CTRL_MEH:
-            return handle_mod_tap_oneshot(allow_mods, keycode, record, KC_LCTL, false, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
+            return handle_mod_tap_oneshot(KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
         
         case KC_MT_GUI_HYPR:
-            return handle_mod_tap_oneshot(allow_mods, keycode, record, KC_LGUI, false, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI)); 
+            return handle_mod_tap_oneshot(KC_LGUI, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
     }
 
     return true;
 }
+
+typedef enum {
+    TD_HOLD,
+    TD_SINGLE_TAP,
+    TD_TAP_AND_HOLD,
+    TD_NONE,
+} td_state_t;
+
+static td_state_t td_state = TD_NONE;
+
+void td_arrows_sym_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        if (state->pressed) {
+            td_state = TD_HOLD;
+            layer_on(_ARROWS);
+        } else {
+            td_state = TD_SINGLE_TAP;
+        }
+    } else if (state->count == 2) {
+        if (state->pressed) {
+            td_state = TD_TAP_AND_HOLD;
+            layer_on(_SYM);
+        } else {
+            td_state = TD_NONE;
+        }
+    }
+}
+
+void td_arrows_sym_reset(tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case TD_HOLD:
+            layer_off(_ARROWS);
+            break;
+
+        case TD_SINGLE_TAP:
+            set_oneshot_layer(_SYM, ONESHOT_START);
+            break;
+
+        case TD_TAP_AND_HOLD:
+            layer_off(_SYM);
+            break;
+
+        case TD_NONE:
+            break;
+    }
+
+    // Reset the state
+    td_state = TD_NONE;
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_ARROWS_SYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_arrows_sym_finished, td_arrows_sym_reset),
+};
+
+const key_override_t meta_w_override = ko_make_basic(MOD_MASK_GUI, KC_W, KC_MS_BTN1);
+const key_override_t meta_e_override = ko_make_basic(MOD_MASK_GUI, KC_E, KC_MS_BTN3);
+const key_override_t meta_r_override = ko_make_basic(MOD_MASK_GUI, KC_R, KC_MS_BTN2);
+
+const key_override_t *key_overrides[] = {
+	&meta_w_override,
+	&meta_e_override,
+	&meta_r_override,
+};
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
