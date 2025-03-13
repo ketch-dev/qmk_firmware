@@ -115,6 +115,26 @@ bool handle_mod_tap_oneshot(uint16_t mt_key, uint16_t oneshot_mods) {
     return false; 
 }
 
+bool lgui_held = false;
+bool handle_mod_tap_lgui(void) {
+    static uint16_t timer;
+    bool allow_mods = prev_keycode == curr_keycode && prev_pressed;
+    clear_oneshot_mods();
+
+    if (curr_pressed) {
+        lgui_held = true;
+        timer = timer_read();
+    } else {
+        lgui_held = false;
+        unregister_mods(MOD_BIT(KC_LGUI)); 
+
+        if (allow_mods && timer_elapsed(timer) < TAPPING_TERM) {
+            add_oneshot_mods(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
+        }
+    }
+    return false; 
+}
+
 bool handle_layer_on_off(enum sofle_layers layer) {
     curr_pressed ? layer_on(layer) : layer_off(layer);
     return false;
@@ -144,7 +164,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_FS: return handle_layer_on_off(_FS);
         case KC_MT_LSFT_CS: return handle_mod_tap_oneshot(KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));    
         case KC_MT_CTRL_MEH: return handle_mod_tap_oneshot(KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
-        case KC_MT_GUI_HYPR: return handle_mod_tap_oneshot(KC_LGUI, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
+        case KC_MT_GUI_HYPR: return handle_mod_tap_lgui();
+        default: if (lgui_held && curr_pressed) register_mods(MOD_BIT(KC_LGUI)); break;
+    }
+
+    if (!curr_pressed && lgui_held) {
+        unregister_mods(MOD_BIT(KC_LGUI));
     }
 
     return true;
