@@ -24,6 +24,7 @@ enum custom_keycodes {
     KC_MT_LSFT_CS,
     KC_MT_CTRL_MEH,
     KC_MT_GUI_HYPR,
+    KC_TOGGLE_OVERRIDE,
 };
 
 enum tap_dance {
@@ -36,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB     ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T           ,                /**/                    KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,_______ ,
         KC_ESC     ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G           ,                /**/                    KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
         KC_BSPC    ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B           ,HYPR(KC_K)    , /**/ HYPR(KC_H)        ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_DEL  ,
-                            _______  ,_______ ,KC_MT_GUI_HYPR ,KC_MT_CTRL_MEH ,KC_MT_LSFT_CS , /**/ TD(TD_ARROWS_SYM) ,KC_SPC  ,_______ ,_______ ,_______
+                            _______  ,_______ ,KC_MT_CTRL_MEH ,KC_MT_GUI_HYPR ,KC_MT_LSFT_CS , /**/ TD(TD_ARROWS_SYM) ,KC_SPC  ,_______ ,_______ ,_______
     ),
     [_DHM] = LAYOUT(
         _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,          /**/          _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
@@ -74,11 +75,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           _______ ,_______ ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,_______ ,_______ ,_______
     ),
     [_ARROWS] = LAYOUT(
-        _______ ,_______   ,_______ ,_______ ,_______ ,_______           ,          /**/          _______    ,_______  ,_______ ,_______ ,_______ ,_______ ,
-        _______ ,KC_1      ,KC_2    ,KC_3    ,KC_4    ,KC_5              ,          /**/          KC_6       ,KC_7     ,KC_8    ,KC_9    ,KC_0    ,_______ ,
-        _______ ,_______   ,_______ ,_______ ,_______ ,DF(KC_MAP_GMS)    ,          /**/          KC_QWERTY  ,KC_LEFT  ,KC_DOWN ,KC_UP   ,KC_RGHT ,_______ ,
-        _______ ,KC_CAPS   ,KC_PSCR ,KC_INS  ,_______ ,DF(KC_QWERTY_GMS) ,_______ , /**/ _______ ,DF(KC_DHM) ,KC_HOME  ,KC_PGDN ,KC_PGUP ,KC_END  ,_______ ,
-                                     _______ ,_______ ,_______ ,_______  ,KC_FS   , /**/ _______ ,_______    ,_______  ,_______ ,_______
+        _______            ,_______   ,_______ ,_______ ,_______ ,_______           ,          /**/          _______    ,_______  ,_______ ,_______ ,_______ ,_______ ,
+        _______            ,KC_1      ,KC_2    ,KC_3    ,KC_4    ,KC_5              ,          /**/          KC_6       ,KC_7     ,KC_8    ,KC_9    ,KC_0    ,_______ ,
+        KC_TOGGLE_OVERRIDE ,_______   ,_______ ,_______ ,_______ ,DF(KC_MAP_GMS)    ,          /**/          KC_QWERTY  ,KC_LEFT  ,KC_DOWN ,KC_UP   ,KC_RGHT ,_______ ,
+        _______            ,KC_CAPS   ,KC_PSCR ,KC_INS  ,_______ ,DF(KC_QWERTY_GMS) ,_______ , /**/ _______ ,DF(KC_DHM) ,KC_HOME  ,KC_PGDN ,KC_PGUP ,KC_END  ,_______ ,
+                                                _______ ,_______ ,_______ ,_______  ,KC_FS   , /**/ _______ ,_______    ,_______  ,_______ ,_______
     ),
     [_FS] = LAYOUT(
         _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,          /**/          _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
@@ -87,6 +88,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______ ,KC_F11  ,KC_F12  ,_______ ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
                           _______ ,_______ ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,_______ ,_______ ,_______
     ),
+};
+
+bool override_enabled = true;
+#define CREATE_LGUI_OVERRIDE(trigger_, replacement_) \
+    { \
+        .trigger_mods = MOD_BIT(KC_LGUI), \
+        .trigger = trigger_, \
+        .replacement = replacement_, \
+        .suppressed_mods = MOD_BIT(KC_LGUI), \
+        .layers = ~0, \
+        .options = ko_options_default, \
+        .negative_mod_mask = (uint8_t) ~(MOD_BIT(KC_LGUI)), \
+        .enabled = &override_enabled, \
+    }
+
+const key_override_t lgui_a_override = CREATE_LGUI_OVERRIDE(KC_A, MS_BTN4);
+const key_override_t lgui_s_override = CREATE_LGUI_OVERRIDE(KC_S, MS_BTN2);
+const key_override_t lgui_d_override = CREATE_LGUI_OVERRIDE(KC_D, MS_BTN3);
+const key_override_t lgui_f_override = CREATE_LGUI_OVERRIDE(KC_F, MS_BTN1);
+const key_override_t lgui_g_override = CREATE_LGUI_OVERRIDE(KC_G, MS_BTN5);
+const key_override_t *key_overrides[] = {
+	&lgui_a_override,
+	&lgui_s_override,
+	&lgui_d_override,
+	&lgui_f_override,
+	&lgui_g_override,
 };
 
 bool prev_prev_pressed = false;
@@ -157,6 +184,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     curr_keycode = keycode;
 
     switch (keycode) {
+        case KC_TOGGLE_OVERRIDE: if (curr_pressed) override_enabled = !override_enabled;
         case KC_QWERTY: return handle_persist_layer(_QWERTY); 
         case KC_GMS_NUMS: return handle_layer_on_off(_GMS_NUMS);
         case KC_SYM: return handle_layer_on_off(_SYM);
@@ -183,7 +211,6 @@ typedef enum {
 } td_state_t;
 
 static td_state_t td_state = TD_NONE;
-
 void td_arrows_sym_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->pressed) {
@@ -215,20 +242,6 @@ void td_arrows_sym_reset(tap_dance_state_t *state, void *user_data) {
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_ARROWS_SYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_arrows_sym_finished, td_arrows_sym_reset),
-};
-
-const key_override_t lgui_w_override = {
-    .trigger_mods = MOD_BIT(KC_LGUI),
-    .trigger = KC_W,
-    .replacement = MS_BTN1,
-    .suppressed_mods = MOD_BIT(KC_LGUI),
-    .layers = ~0,
-    .options = ko_options_default,
-    .negative_mod_mask = (uint8_t) ~(MOD_BIT(KC_LGUI)),
-};
-
-const key_override_t *key_overrides[] = {
-	&lgui_w_override,
 };
 
 #ifdef ENCODER_ENABLE
