@@ -115,32 +115,15 @@ bool handle_mod_tap_oneshot(uint16_t mt_key, uint16_t oneshot_mods) {
     return false; 
 }
 
-bool handle_layer_tap_oneshot(uint16_t lt_key, uint16_t oneshot_layer) {
-    static uint16_t timer;
-
-    bool allow_layer = prev_keycode == curr_keycode && prev_pressed;
-
-
-        if (curr_pressed) {
-            timer = timer_read();
-            layer_on(lt_key);
-        } else {
-            layer_off(lt_key);
-
-            if (allow_layer && timer_elapsed(timer) < TAPPING_TERM) {
-                set_oneshot_layer(oneshot_layer, ONESHOT_START);
-            }
-        }
-
-    return false;
-
-}
-
 bool handle_layer_on_off(enum sofle_layers layer) {
     curr_pressed ? layer_on(layer) : layer_off(layer);
     return false;
 }
 
+bool handle_persist_layer(enum sofle_layers layer) {
+    if (curr_pressed) set_single_persistent_default_layer(layer);
+    return false;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     clear_oneshot_layer_state(ONESHOT_PRESSED);
@@ -154,32 +137,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     curr_keycode = keycode;
 
     switch (keycode) {
-        case KC_QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        
-        case KC_GMS_NUMS:
-            return handle_layer_on_off(_GMS_NUMS);
-
-        case KC_SYM:
-            return handle_layer_on_off(_SYM);
-
-        case KC_ARROWS:
-            return handle_layer_on_off(_ARROWS);
-        
-        case KC_FS:
-            return handle_layer_on_off(_FS);
-
-        case KC_MT_LSFT_CS:
-            return handle_mod_tap_oneshot(KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));    
-
-        case KC_MT_CTRL_MEH:
-            return handle_mod_tap_oneshot(KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
-        
-        case KC_MT_GUI_HYPR:
-            return handle_mod_tap_oneshot(KC_LGUI, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
+        case KC_QWERTY: return handle_persist_layer(_QWERTY); 
+        case KC_GMS_NUMS: return handle_layer_on_off(_GMS_NUMS);
+        case KC_SYM: return handle_layer_on_off(_SYM);
+        case KC_ARROWS: return handle_layer_on_off(_ARROWS);
+        case KC_FS: return handle_layer_on_off(_FS);
+        case KC_MT_LSFT_CS: return handle_mod_tap_oneshot(KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));    
+        case KC_MT_CTRL_MEH: return handle_mod_tap_oneshot(KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
+        case KC_MT_GUI_HYPR: return handle_mod_tap_oneshot(KC_LGUI, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
     }
 
     return true;
@@ -214,23 +179,12 @@ void td_arrows_sym_finished(tap_dance_state_t *state, void *user_data) {
 
 void td_arrows_sym_reset(tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
-        case TD_HOLD:
-            layer_off(_ARROWS);
-            break;
-
-        case TD_SINGLE_TAP:
-            set_oneshot_layer(_SYM, ONESHOT_START);
-            break;
-
-        case TD_TAP_AND_HOLD:
-            layer_off(_SYM);
-            break;
-
-        case TD_NONE:
-            break;
+        case TD_HOLD: layer_off(_ARROWS); break;
+        case TD_SINGLE_TAP: set_oneshot_layer(_SYM, ONESHOT_START); break;
+        case TD_TAP_AND_HOLD: layer_off(_SYM); break;
+        case TD_NONE: break;
     }
 
-    // Reset the state
     td_state = TD_NONE;
 }
 
@@ -238,14 +192,18 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ARROWS_SYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_arrows_sym_finished, td_arrows_sym_reset),
 };
 
-const key_override_t meta_w_override = ko_make_basic(MOD_MASK_GUI, KC_W, KC_MS_BTN1);
-const key_override_t meta_e_override = ko_make_basic(MOD_MASK_GUI, KC_E, KC_MS_BTN3);
-const key_override_t meta_r_override = ko_make_basic(MOD_MASK_GUI, KC_R, KC_MS_BTN2);
+const key_override_t lgui_w_override = {
+    .trigger_mods = MOD_BIT(KC_LGUI),
+    .trigger = KC_W,
+    .replacement = MS_BTN1,
+    .suppressed_mods = MOD_BIT(KC_LGUI),
+    .layers = ~0,
+    .options = ko_options_default,
+    .negative_mod_mask = (uint8_t) ~(MOD_BIT(KC_LGUI)),
+};
 
 const key_override_t *key_overrides[] = {
-	&meta_w_override,
-	&meta_e_override,
-	&meta_r_override,
+	&lgui_w_override,
 };
 
 #ifdef ENCODER_ENABLE
