@@ -29,14 +29,15 @@ enum custom_keycodes {
 
 enum tap_dance {
     TD_ARROWS_SYM,
+    TD_Х_Э_Ъ,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-        _______    ,_______ ,_______ ,_______ ,_______        ,_______        ,                /**/                    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
-        KC_TAB     ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T           ,                /**/                    KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,_______ ,
-        KC_ESC     ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G           ,                /**/                    KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
-        KC_BSPC    ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B           ,HYPR(KC_K)    , /**/ HYPR(KC_H)        ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_DEL  ,
+        _______    ,_______ ,_______ ,_______ ,_______        ,_______        ,                /**/                    _______ ,_______ ,_______ ,_______ ,_______ ,_______      ,
+        KC_TAB     ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T           ,                /**/                    KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,TD(TD_Х_Э_Ъ) ,
+        KC_ESC     ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G           ,                /**/                    KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT       ,
+        KC_BSPC    ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B           ,HYPR(KC_K)    , /**/ HYPR(KC_H)        ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_DEL       ,
                             _______  ,_______ ,KC_MT_CTRL_MEH ,KC_MT_GUI_HYPR ,KC_MT_LSFT_CS , /**/ TD(TD_ARROWS_SYM) ,KC_SPC  ,_______ ,_______ ,_______
     ),
     [_DHM] = LAYOUT(
@@ -205,8 +206,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 typedef enum {
     TD_HOLD,
-    TD_SINGLE_TAP,
-    TD_TAP_AND_HOLD,
+    TD_TAP,
+    TD_TAP_HOLD,
+    TD_TAP_TAP,
+    TD_TAP_TAP_TAP,
     TD_NONE,
 } td_state_t;
 
@@ -217,11 +220,11 @@ void td_arrows_sym_finished(tap_dance_state_t *state, void *user_data) {
             td_state = TD_HOLD;
             layer_on(_ARROWS);
         } else {
-            td_state = TD_SINGLE_TAP;
+            td_state = TD_TAP;
         }
     } else if (state->count == 2) {
         if (state->pressed) {
-            td_state = TD_TAP_AND_HOLD;
+            td_state = TD_TAP_HOLD;
             layer_on(_SYM);
         } else {
             td_state = TD_NONE;
@@ -232,16 +235,29 @@ void td_arrows_sym_finished(tap_dance_state_t *state, void *user_data) {
 void td_arrows_sym_reset(tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case TD_HOLD: layer_off(_ARROWS); break;
-        case TD_SINGLE_TAP: set_oneshot_layer(_SYM, ONESHOT_START); break;
-        case TD_TAP_AND_HOLD: layer_off(_SYM); break;
-        case TD_NONE: break;
+        case TD_TAP: set_oneshot_layer(_SYM, ONESHOT_START); break;
+        case TD_TAP_HOLD: layer_off(_SYM); break;
+        default: break;
     }
 
     td_state = TD_NONE;
 }
 
+void td_Х_Э_Ъ_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) register_code(KC_LBRC);
+    else if (state->count == 2) register_code(KC_QUOT);
+    else register_code(KC_RBRC);
+}
+
+void td_Х_Э_Ъ_reset(tap_dance_state_t *state, void *user_data) {
+    unregister_code(KC_LBRC);
+    unregister_code(KC_QUOT);
+    unregister_code(KC_RBRC);
+}
+
 tap_dance_action_t tap_dance_actions[] = {
     [TD_ARROWS_SYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_arrows_sym_finished, td_arrows_sym_reset),
+    [TD_Х_Э_Ъ] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_Х_Э_Ъ_finished, td_Х_Э_Ъ_reset),
 };
 
 #ifdef ENCODER_ENABLE
