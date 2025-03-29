@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 #define LT_GMS_NUMS_ESC LT(KC_GMS_NUMS, KC_ESC)
-#define MT_LSFT_ESC MT(KC_LSFT, KC_ESC)
+#define MT_LSFT_ESC SFT_T(KC_ESC)
 
 enum sofle_layers {
     _QWERTY,
@@ -8,9 +8,9 @@ enum sofle_layers {
     _MAP_GMS,
     _QWERTY_GMS,
     _GMS_NUMS,
-    _FS,
     _SYM,
     _ARROWS,
+    _FS,
 };
 
 enum custom_keycodes {
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SYM] = LAYOUT(
         XXXXXXX    ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX    ,XXXXXXX   ,
         _______    ,KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,          /**/          KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_UNDS ,LSFT(KC_P) ,_______   ,
-        S(KC_BSPC) ,KC_BSPC ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LABK ,          /**/          KC_RABK ,KC_RPRN ,KC_RCBR ,KC_RBRC ,KC_DEL     ,S(KC_DEL) ,
+        C(KC_BSPC) ,KC_BSPC ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LABK ,          /**/          KC_RABK ,KC_RPRN ,KC_RCBR ,KC_RBRC ,KC_DEL     ,C(KC_DEL) ,
         _______    ,KC_TILD ,KC_QUES ,KC_QUOT ,KC_DQT  ,KC_GRV  ,XXXXXXX , /**/ XXXXXXX ,KC_PLUS ,KC_MINS ,KC_EQL  ,KC_PIPE ,KC_BSLS    ,_______   ,
                              XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX
     ),
@@ -144,6 +144,26 @@ bool handle_mod_tap_oneshot(uint16_t mt_key, uint16_t oneshot_mods) {
     return false; 
 }
 
+bool handle_tri_layer_tap_oneshot(enum sofle_layers layer, enum sofle_layers second_layer, enum sofle_layers third_layer, uint16_t oneshot_mods) {
+    static uint16_t timer;
+    bool allow_mods = prev_keycode == curr_keycode && prev_pressed;
+    clear_oneshot_mods();
+
+    if (curr_pressed) {
+        timer = timer_read();
+        layer_on(layer); 
+        update_tri_layer(layer, second_layer, third_layer);
+    } else {
+        layer_off(layer);
+        update_tri_layer(layer, second_layer, third_layer);
+
+        if (allow_mods && timer_elapsed(timer) < TAPPING_TERM) {
+            add_oneshot_mods(oneshot_mods);
+        }
+    }
+    return false; 
+}
+
 bool lgui_held = false;
 bool handle_mod_tap_lgui(void) {
     static uint16_t timer;
@@ -199,7 +219,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_ARROWS: return handle_tri_layer_on_off(_ARROWS, _SYM, _FS);
         case KC_FS: return handle_layer_on_off(_FS);
         case KC_MT_CTRL_MEH: return handle_mod_tap_oneshot(KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
-        case KC_MT_SYM_CGA: return handle_mod_tap_oneshot(KC_SYM, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_LALT));
+        case KC_MT_SYM_CGA: return handle_tri_layer_tap_oneshot(_SYM, _ARROWS, _FS, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_LALT));
         case KC_MT_GUI_HYPR: return handle_mod_tap_lgui();
         default: if (lgui_held && curr_pressed) register_mods(MOD_BIT(KC_LGUI)); break;
     }
