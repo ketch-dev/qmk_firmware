@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #define LT_GMS_NUMS_ESC LT(KC_GMS_NUMS, KC_ESC)
+#define MT_LSFT_ESC MT(KC_LSFT, KC_ESC)
 
 enum sofle_layers {
     _QWERTY,
@@ -7,9 +8,9 @@ enum sofle_layers {
     _MAP_GMS,
     _QWERTY_GMS,
     _GMS_NUMS,
+    _FS,
     _SYM,
     _ARROWS,
-    _FS,
 };
 
 enum custom_keycodes {
@@ -21,25 +22,24 @@ enum custom_keycodes {
     KC_SYM,
     KC_ARROWS,
     KC_FS,
-    KC_MT_LSFT_CS,
     KC_MT_CTRL_MEH,
     KC_MT_GUI_HYPR,
+    KC_MT_SYM_CGA,
     KC_TOGGLE_OVERRIDE,
 };
 
 enum tap_dance {
-    TD_ARROWS_SYM,
     TD_Э_Ё,
     TD_Х_Ъ,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-        XXXXXXX    ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX        ,XXXXXXX        ,                /**/                    XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX    ,
-        TD(TD_Э_Ё) ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T           ,                /**/                    KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,TD(TD_Х_Ъ) ,
-        KC_ESC     ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G           ,                /**/                    KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT     ,
-        KC_LALT    ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B           ,XXXXXXX       , /**/ XXXXXXX           ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_TAB     ,
-                             XXXXXXX ,XXXXXXX ,KC_MT_CTRL_MEH ,KC_MT_GUI_HYPR ,KC_MT_LSFT_CS , /**/ TD(TD_ARROWS_SYM) ,KC_SPC  ,XXXXXXX ,XXXXXXX ,XXXXXXX
+        XXXXXXX      ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX        ,XXXXXXX        ,                 /**/            XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX    ,
+        TD(TD_Э_Ё)   ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T           ,                 /**/            KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,TD(TD_Х_Ъ) ,
+        MT_LSFT_ESC  ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G           ,                 /**/            KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT     ,
+        KC_LALT      ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B           ,XXXXXXX ,        /**/ XXXXXXX   ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_TAB     ,
+                               XXXXXXX ,XXXXXXX ,KC_MT_CTRL_MEH ,KC_MT_GUI_HYPR ,KC_MT_SYM_CGA ,  /**/ KC_ARROWS ,KC_SPC  ,XXXXXXX ,XXXXXXX ,XXXXXXX
     ),
     [_DHM] = LAYOUT(
         XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
@@ -70,24 +70,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX
     ),
     [_SYM] = LAYOUT(
-        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX    ,XXXXXXX ,
-        _______ ,KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,          /**/          KC_CIRC ,KC_AMPR ,KC_ASTR ,_______ ,LSFT(KC_P) ,_______ ,
-        _______ ,KC_QUES ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LABK ,          /**/          KC_RABK ,KC_RPRN ,KC_RCBR ,KC_RBRC ,KC_UNDS    ,_______ ,
-        _______ ,KC_TILD ,_______ ,KC_QUOT ,KC_DQT  ,KC_GRV  ,XXXXXXX , /**/ XXXXXXX ,KC_PLUS ,KC_MINS ,KC_EQL  ,KC_PIPE ,KC_BSLS    ,_______ ,
-                          XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX
+        XXXXXXX    ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX    ,XXXXXXX   ,
+        _______    ,KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,          /**/          KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_UNDS ,LSFT(KC_P) ,_______   ,
+        S(KC_BSPC) ,KC_BSPC ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LABK ,          /**/          KC_RABK ,KC_RPRN ,KC_RCBR ,KC_RBRC ,KC_DEL     ,S(KC_DEL) ,
+        _______    ,KC_TILD ,KC_QUES ,KC_QUOT ,KC_DQT  ,KC_GRV  ,XXXXXXX , /**/ XXXXXXX ,KC_PLUS ,KC_MINS ,KC_EQL  ,KC_PIPE ,KC_BSLS    ,_______   ,
+                             XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX
     ),
     [_ARROWS] = LAYOUT(
         XXXXXXX            ,XXXXXXX ,XXXXXXX ,XXXXXXX    ,XXXXXXX   ,XXXXXXX           ,          /**/          XXXXXXX    ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
-        KC_TOGGLE_OVERRIDE ,KC_1    ,KC_2    ,KC_3       ,KC_4      ,KC_5              ,          /**/          KC_6       ,KC_7     ,KC_8    ,KC_9    ,KC_0    ,KC_CAPS ,
-        KC_MPLY            ,KC_VOLD ,KC_VOLU ,KC_BSPC    ,KC_DEL    ,DF(KC_MAP_GMS)    ,          /**/          KC_QWERTY  ,KC_LEFT  ,KC_DOWN ,KC_UP   ,KC_RGHT ,KC_INS  ,
-        _______            ,KC_MPRV ,KC_MNXT ,C(KC_BSPC) ,C(KC_DEL) ,DF(KC_QWERTY_GMS) ,XXXXXXX , /**/ XXXXXXX ,DF(KC_DHM) ,KC_HOME  ,KC_PGDN ,KC_PGUP ,KC_END  ,KC_PSCR ,
-                                     XXXXXXX ,XXXXXXX    ,_______   ,_______           ,KC_FS   , /**/ _______ ,_______    ,XXXXXXX  ,XXXXXXX ,XXXXXXX
+        KC_TOGGLE_OVERRIDE ,KC_1    ,KC_2    ,KC_3       ,KC_4      ,KC_5              ,          /**/          KC_6       ,KC_7     ,KC_8    ,KC_9    ,KC_0    ,KC_INS  ,
+        KC_MPLY            ,KC_VOLD ,KC_VOLU ,_______    ,_______   ,DF(KC_MAP_GMS)    ,          /**/          KC_QWERTY  ,KC_LEFT  ,KC_DOWN ,KC_UP   ,KC_RGHT ,KC_CAPS ,
+        _______            ,KC_MPRV ,KC_MNXT ,_______    ,_______   ,DF(KC_QWERTY_GMS) ,XXXXXXX , /**/ XXXXXXX ,DF(KC_DHM) ,KC_HOME  ,KC_PGDN ,KC_PGUP ,KC_END  ,KC_PSCR ,
+                                     XXXXXXX ,XXXXXXX    ,_______   ,_______           ,_______ , /**/ _______ ,_______    ,XXXXXXX  ,XXXXXXX ,XXXXXXX
     ),
     [_FS] = LAYOUT(
         XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
         _______ ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,          /**/          KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,_______ ,
         _______ ,KC_LGUI ,KC_LALT ,KC_LSFT ,KC_LCTL ,_______ ,          /**/          _______ ,KC_LCTL ,KC_LSFT ,KC_LALT ,KC_LGUI ,_______ ,
-        _______ ,KC_F11  ,KC_F12  ,_______ ,_______ ,_______ ,XXXXXXX , /**/ XXXXXXX ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
+        _______ ,KC_F11  ,KC_F12  ,_______ ,_______ ,_______ ,XXXXXXX , /**/ XXXXXXX ,_______ ,KC_DEL  ,_______ ,_______ ,_______ ,_______ ,
                           XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX
     ),
 };
@@ -169,6 +169,12 @@ bool handle_layer_on_off(enum sofle_layers layer) {
     return false;
 }
 
+bool handle_tri_layer_on_off(enum sofle_layers layer, enum sofle_layers second_layer, enum sofle_layers third_layer) {
+    handle_layer_on_off(layer);
+    update_tri_layer(layer, second_layer, third_layer);
+    return false;
+}
+
 bool handle_persist_layer(enum sofle_layers layer) {
     if (curr_pressed) set_single_persistent_default_layer(layer);
     return false;
@@ -189,11 +195,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_TOGGLE_OVERRIDE: if (curr_pressed) override_enabled = !override_enabled;
         case KC_QWERTY: return handle_persist_layer(_QWERTY); 
         case KC_GMS_NUMS: return handle_layer_on_off(_GMS_NUMS);
-        case KC_SYM: return handle_layer_on_off(_SYM);
-        case KC_ARROWS: return handle_layer_on_off(_ARROWS);
+        case KC_SYM: return handle_tri_layer_on_off(_SYM, _ARROWS, _FS);
+        case KC_ARROWS: return handle_tri_layer_on_off(_ARROWS, _SYM, _FS);
         case KC_FS: return handle_layer_on_off(_FS);
-        case KC_MT_LSFT_CS: return handle_mod_tap_oneshot(KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));    
         case KC_MT_CTRL_MEH: return handle_mod_tap_oneshot(KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
+        case KC_MT_SYM_CGA: return handle_mod_tap_oneshot(KC_SYM, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_LALT));
         case KC_MT_GUI_HYPR: return handle_mod_tap_lgui();
         default: if (lgui_held && curr_pressed) register_mods(MOD_BIT(KC_LGUI)); break;
     }
@@ -215,37 +221,8 @@ typedef enum {
 } td_state_t;
 
 static td_state_t td_state = TD_NONE;
-void td_arrows_sym_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        if (state->pressed) {
-            td_state = TD_HOLD;
-            layer_on(_ARROWS);
-        } else {
-            td_state = TD_TAP;
-        }
-    } else if (state->count == 2) {
-        if (state->pressed) {
-            td_state = TD_TAP_HOLD;
-            layer_on(_SYM);
-        } else {
-            td_state = TD_NONE;
-        }
-    }
-}
-
-void td_arrows_sym_reset(tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case TD_HOLD: layer_off(_ARROWS); break;
-        case TD_TAP: set_oneshot_layer(_SYM, ONESHOT_START); break;
-        case TD_TAP_HOLD: layer_off(_SYM); break;
-        default: break;
-    }
-
-    td_state = TD_NONE;
-}
 
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_ARROWS_SYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_arrows_sym_finished, td_arrows_sym_reset),
     [TD_Э_Ё] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_GRV),
     [TD_Х_Ъ] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
 };
