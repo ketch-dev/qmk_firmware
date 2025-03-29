@@ -211,17 +211,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-typedef enum {
-    TD_HOLD,
-    TD_TAP,
-    TD_TAP_HOLD,
-    TD_TAP_TAP,
-    TD_TAP_TAP_TAP,
-    TD_NONE,
-} td_state_t;
-
-static td_state_t td_state = TD_NONE;
-
 tap_dance_action_t tap_dance_actions[] = {
     [TD_Э_Ё] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_GRV),
     [TD_Х_Ъ] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
