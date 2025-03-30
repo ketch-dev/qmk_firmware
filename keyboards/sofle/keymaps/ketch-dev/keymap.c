@@ -1,7 +1,4 @@
 #include QMK_KEYBOARD_H
-#define LT_GMS_NUMS_ESC LT(KC_GMS_NUMS, KC_ESC)
-#define LT_MNG_SLSH LT(KC_MNG, KC_SLSH)
-#define LT_SYM_TAB LT(KC_SYM, KC_TAB)
 
 enum sofle_layers {
     _QWERTY,
@@ -20,9 +17,6 @@ enum custom_keycodes {
     KC_DHM,
     KC_MAP_GMS,
     KC_QWERTY_GMS,
-    KC_GMS_NUMS,
-    KC_MNG,
-    KC_SYM,
     KC_FS,
     KC_LT_SYS_CSG,
     KC_MT_CTRL_MEH,
@@ -37,11 +31,11 @@ enum tap_dance {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-        XXXXXXX    ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX        ,XXXXXXX       ,                 /**/             XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX     ,XXXXXXX    ,
-        TD(TD_Э_Ё) ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T          ,                 /**/             KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P        ,TD(TD_Х_Ъ) ,
-        KC_ESC     ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G          ,                 /**/             KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN     ,KC_ENT     ,
-        KC_LGUI    ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B          ,XXXXXXX       ,  /**/ XXXXXXX    ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,LT_MNG_SLSH ,KC_LALT    ,
-                             XXXXXXX ,XXXXXXX ,KC_MT_CTRL_MEH ,KC_LT_SYS_CSG ,KC_MT_LSFT_CS ,  /**/ LT_SYM_TAB ,KC_SPC  ,XXXXXXX ,XXXXXXX ,XXXXXXX
+        XXXXXXX    ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX        ,XXXXXXX       ,                 /**/             XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX           ,XXXXXXX    ,
+        TD(TD_Э_Ё) ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T          ,                 /**/             KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P              ,TD(TD_Х_Ъ) ,
+        KC_ESC     ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G          ,                 /**/             KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN           ,KC_ENT     ,
+        KC_LGUI    ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B          ,XXXXXXX       ,  /**/ XXXXXXX    ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,LT(_MNG, KC_SLSH) ,KC_LALT    ,
+                             XXXXXXX ,XXXXXXX ,KC_MT_CTRL_MEH ,KC_LT_SYS_CSG ,KC_MT_LSFT_CS ,  /**/ LT(_SYM, KC_TAB)      ,KC_SPC  ,XXXXXXX ,XXXXXXX ,XXXXXXX
     ),
     [_DHM] = LAYOUT(
         XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
@@ -51,18 +45,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           XXXXXXX ,XXXXXXX ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX
     ),
     [_MAP_GMS] = LAYOUT(
-        XXXXXXX   ,XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,                  /**/          XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
-        KC_F/*T*/ ,KC_TAB  ,KC_Q/*Q*/ ,KC_W/*W*/ ,KC_K/*E*/ ,KC_S/*R*/ ,                  /**/          _______ ,_______   ,_______   ,_______ ,_______ ,_______ ,
-        KC_G/*G*/ ,KC_LSFT ,KC_A/*A*/ ,KC_D/*S*/ ,KC_V/*D*/ ,KC_E/*F*/ ,                  /**/          _______ ,A(KC_TAB) ,G(KC_TAB) ,_______ ,_______ ,_______ ,
-        KC_T/*B*/ ,KC_LCTL ,KC_Z/*Z*/ ,KC_X/*X*/ ,KC_C/*C*/ ,KC_B/*V*/ ,XXXXXXX         , /**/ XXXXXXX ,_______ ,_______   ,_______   ,_______ ,_______ ,_______ ,
-                            XXXXXXX   ,XXXXXXX   ,KC_LALT   ,KC_SPC    ,LT_GMS_NUMS_ESC , /**/ _______ ,_______ ,XXXXXXX   ,XXXXXXX   ,XXXXXXX
+        XXXXXXX   ,XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,                       /**/          XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+        KC_F/*T*/ ,KC_TAB  ,KC_Q/*Q*/ ,KC_W/*W*/ ,KC_K/*E*/ ,KC_S/*R*/ ,                       /**/          _______ ,_______   ,_______   ,_______ ,_______ ,_______ ,
+        KC_G/*G*/ ,KC_LSFT ,KC_A/*A*/ ,KC_D/*S*/ ,KC_V/*D*/ ,KC_E/*F*/ ,                       /**/          _______ ,A(KC_TAB) ,G(KC_TAB) ,_______ ,_______ ,_______ ,
+        KC_T/*B*/ ,KC_LCTL ,KC_Z/*Z*/ ,KC_X/*X*/ ,KC_C/*C*/ ,KC_B/*V*/ ,XXXXXXX              , /**/ XXXXXXX ,_______ ,_______   ,_______   ,_______ ,_______ ,_______ ,
+                            XXXXXXX   ,XXXXXXX   ,KC_LALT   ,KC_SPC    ,LT(_GMS_NUMS, KC_ESC), /**/ _______ ,_______ ,XXXXXXX   ,XXXXXXX   ,XXXXXXX
     ),
     [_QWERTY_GMS] = LAYOUT(
-        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX  ,XXXXXXX ,                  /**/          XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
-        KC_T    ,KC_TAB  ,KC_Q    ,KC_W    ,KC_E     ,KC_R    ,                  /**/          _______ ,_______   ,_______   ,_______ ,_______ ,_______ ,
-        KC_G    ,KC_LSFT ,KC_A    ,KC_S    ,KC_D     ,KC_F    ,                  /**/          _______ ,A(KC_TAB) ,G(KC_TAB) ,_______ ,_______ ,_______ ,
-        KC_B    ,KC_LCTL ,KC_Z    ,KC_X    ,KC_C     ,KC_V    ,XXXXXXX         , /**/ XXXXXXX ,_______ ,_______   ,_______   ,_______ ,_______ ,_______ ,
-                          XXXXXXX ,XXXXXXX ,KC_LALT  ,KC_SPC  ,LT_GMS_NUMS_ESC , /**/ _______ ,_______ ,XXXXXXX   ,XXXXXXX   ,XXXXXXX
+        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX  ,XXXXXXX ,                        /**/          XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+        KC_T    ,KC_TAB  ,KC_Q    ,KC_W    ,KC_E     ,KC_R    ,                        /**/          _______ ,_______   ,_______   ,_______ ,_______ ,_______ ,
+        KC_G    ,KC_LSFT ,KC_A    ,KC_S    ,KC_D     ,KC_F    ,                        /**/          _______ ,A(KC_TAB) ,G(KC_TAB) ,_______ ,_______ ,_______ ,
+        KC_B    ,KC_LCTL ,KC_Z    ,KC_X    ,KC_C     ,KC_V    ,XXXXXXX               , /**/ XXXXXXX ,_______ ,_______   ,_______   ,_______ ,_______ ,_______ ,
+                          XXXXXXX ,XXXXXXX ,KC_LALT  ,KC_SPC  ,LT(_GMS_NUMS, KC_ESC) , /**/ _______ ,_______ ,XXXXXXX   ,XXXXXXX   ,XXXXXXX
     ),
     [_GMS_NUMS] = LAYOUT(
         XXXXXXX ,XXXXXXX       ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
@@ -168,9 +162,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case KC_QWERTY: return handle_persist_layer(_QWERTY); 
-        case KC_GMS_NUMS: return handle_layer_on_off(_GMS_NUMS);
-        case KC_MNG: return handle_layer_on_off(_MNG);
-        case KC_SYM: return handle_layer_on_off(_SYM);
         case KC_FS: return handle_layer_on_off(_FS);
         case KC_LT_SYS_CSG: return handle_layer_tap_oneshot(_SYS, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_LSFT) );
         case KC_MT_CTRL_MEH: return handle_mod_tap_oneshot(KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
