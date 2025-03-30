@@ -17,7 +17,6 @@
 #define SPLIT_TRANSPORT_MIRROR
 #define HOLD_ON_OTHER_KEY_PRESS
 #define QUICK_TAP_TERM 0
-#define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_F18
 /* The way how "handedness" is decided (which half is which),
 see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
