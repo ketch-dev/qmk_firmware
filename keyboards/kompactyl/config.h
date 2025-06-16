@@ -1,8 +1,4 @@
-// Meta
-#define MANUFACTURER "ketch-dev"
-#define VENDOR_ID 0xC4F3
-#define PRODUCT_ID 0xC4F4
-#define DEVICE_VER 0x0100
+#pragma once
 
 // Matrix
 #define MATRIX_ROWS 10 
