@@ -1,9 +1,18 @@
 {
     "manufacturer": "ketch-dev",
+    "bootloader": "rp2040",
+    "processor": "RP2040",
+    "board": "GENERIC_RP_RP2040",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0xC4FA",
         "vid": "0xC4F3"
+    },
+    "split": {
+        "enabled": true,
+        "serial": {
+            "driver": "vendor"
+        }
     },
     "layouts": {
         "LAYOUT_split_5x7_8": {
