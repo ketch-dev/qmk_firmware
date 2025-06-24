@@ -22,5 +22,9 @@
 #define HOLD_ON_OTHER_KEY_PRESS
 #define QUICK_TAP_TERM 0
 
+// Bootmagic
+#define BOOTMAGIC_ROW 0
+#define BOOTMAGIC_COLUMN 0
+
 // Other
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
