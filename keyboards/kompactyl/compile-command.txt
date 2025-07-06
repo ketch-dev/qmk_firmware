@@ -1,0 +1,1 @@
+qmk clean && qmk flash -kb kompactyl -km default

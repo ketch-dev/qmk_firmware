@@ -75,9 +75,9 @@ enum tap_dance {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_EN_COLEMAK] = LAYOUT(
         _______ ,KC_1    ,KC_2    ,KC_3    ,KC_4            ,KC_5           ,                /**/                 KC_6    ,KC_7     ,KC_8    ,KC_9    ,KC_0    ,_______ ,
-        _______ ,XXXXXXX ,KC_X    ,KC_M    ,KC_W            ,KC_B           ,                /**/                 KC_Q    ,KC_P     ,KC_J    ,KC_K    ,XXXXXXX ,_______ ,
+        _______ ,KC_F21  ,KC_X    ,KC_M    ,KC_W            ,KC_B           ,                /**/                 KC_K    ,KC_P     ,KC_J    ,KC_Q    ,KC_F23  ,_______ ,
         KC_ESC  ,KC_N    ,KC_L    ,KC_T    ,KC_S            ,KC_G           ,                /**/                 KC_Y    ,KC_H     ,KC_A    ,KC_E    ,KC_I    ,KC_ENT  ,
-        _______ ,KC_Z    ,KC_R    ,KC_D    ,KC_C            ,KC_V           ,_______       , /**/ KC_MT_LALT_CGA ,XXXXXXX ,KC_F     ,KC_O    ,KC_U    ,KC_DOT  ,_______ ,
+        _______ ,KC_Z    ,KC_R    ,KC_D    ,KC_C            ,KC_V           ,_______       , /**/ KC_MT_LALT_CGA ,KC_F22  ,KC_F     ,KC_O    ,KC_U    ,KC_DOT  ,_______ ,
                           KC_TAB  ,KC_BSPC ,KC_MT_LGUI_HYPR ,KC_MT_CTRL_MEH ,KC_MT_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,_______
     ),
     [_RU_JCUKEN] = LAYOUT(
