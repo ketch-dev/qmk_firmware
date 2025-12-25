@@ -74,32 +74,32 @@ enum tap_dance {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_EN_COLEMAK] = LAYOUT(
-        _______ ,KC_1        ,KC_2    ,KC_3    ,KC_4            ,KC_5           ,                /**/                 KC_6    ,KC_7     ,KC_8    ,KC_9        ,KC_0       ,_______ ,
-        _______ ,C(S(KC_F1)) ,KC_X    ,KC_M    ,KC_W            ,KC_V           ,                /**/                 KC_K    ,KC_P     ,KC_J    ,C(S(KC_F2)) ,C(S(KC_F3)) ,_______ ,
-        KC_ESC  ,KC_N        ,KC_L    ,KC_T    ,KC_S            ,KC_G           ,                /**/                 KC_Y    ,KC_H     ,KC_A    ,KC_E        ,KC_I       ,KC_ENT  ,
-        _______ ,KC_B        ,KC_R    ,KC_D    ,KC_C            ,KC_Z           ,_______       , /**/ KC_MT_LALT_CGA ,KC_Q    ,KC_F     ,KC_O    ,KC_U        ,KC_DOT     ,_______ ,
-                              KC_TAB  ,KC_BSPC ,KC_MT_LGUI_HYPR ,KC_MT_CTRL_MEH ,KC_MT_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,_______
+        KC_PSLS  ,KC_1    ,KC_2   ,KC_3    ,KC_4            ,KC_5           ,                /**/                 KC_6    ,KC_7     ,KC_8    ,KC_9    ,KC_0   ,XXXXXXX ,
+        KC_PAST  ,KC_PMNS ,KC_X   ,KC_M    ,KC_W            ,KC_V           ,                /**/                 KC_K    ,KC_P     ,KC_J    ,KC_PEQL ,KC_F23 ,XXXXXXX ,
+        KC_ESC   ,KC_N    ,KC_L   ,KC_T    ,KC_S            ,KC_G           ,                /**/                 KC_Y    ,KC_H     ,KC_A    ,KC_E    ,KC_I   ,KC_ENT  ,
+        KC_PPLS  ,KC_B    ,KC_R   ,KC_D    ,KC_C            ,KC_Z           ,KC_PCMM       , /**/ KC_MT_LALT_CGA ,KC_Q    ,KC_F     ,KC_O    ,KC_U    ,U_DOT  ,XXXXXXX ,
+                           KC_TAB ,KC_BSPC ,KC_MT_LGUI_HYPR ,KC_MT_CTRL_MEH ,KC_MT_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
     ),
     [_RU_JCUKEN] = LAYOUT(
-        _______    ,KC_1    ,KC_2    ,KC_3    ,KC_4           ,KC_5            ,                /**/                 KC_6    ,KC_7     ,KC_8    ,KC_9    ,KC_0    ,_______    ,
+        KC_PSLS    ,KC_1    ,KC_2    ,KC_3    ,KC_4           ,KC_5            ,                /**/                 KC_6    ,KC_7     ,KC_8    ,KC_9    ,KC_0    ,XXXXXXX    ,
         TD(TD_3_E) ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T            ,                /**/                 KC_Y    ,KC_U     ,KC_I    ,KC_O    ,KC_P    ,TD(TD_X_b) ,
         KC_ESC     ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G            ,                /**/                 KC_H    ,KC_J     ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT     ,
-        _______    ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B            ,_______       , /**/ KC_MT_LALT_CGA ,KC_N    ,KC_M     ,KC_COMM ,KC_DOT  ,KC_SLSH ,_______    ,
-                             KC_TAB  ,KC_BSPC ,KC_MT_LGUI_HYPR ,KC_MT_CTRL_MEH ,KC_MT_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,_______
+        KC_PPLS    ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B            ,KC_PCMM       , /**/ KC_MT_LALT_CGA ,KC_N    ,KC_M     ,KC_COMM ,KC_DOT  ,U_DOT   ,XXXXXXX    ,
+                             KC_TAB  ,KC_BSPC ,KC_MT_LGUI_HYPR ,KC_MT_CTRL_MEH ,KC_MT_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
     ),
     [_NAV] = LAYOUT(
-        _______ ,KC_F1         ,KC_F2   ,KC_F3        ,KC_F4   ,KC_F5   ,          /**/          KC_F6   ,KC_F7   ,KC_F8    ,KC_F9    ,KC_F10  ,KC_F11  ,
-        _______ ,HYPR(KC_QUOT) ,_______ ,_______      ,_______ ,_______ ,          /**/          KC_HOME ,KC_PGDN ,KC_PGUP  ,KC_END   ,_______ ,KC_F12  ,
-        XXXXXXX ,KC_PSCR       ,KC_VOLD ,KC_MPLY      ,KC_VOLU ,_______ ,          /**/          KC_LEFT ,KC_DOWN ,KC_UP    ,KC_RIGHT ,_______ ,XXXXXXX ,
-        _______ ,KC_CAPS       ,KC_MPRV ,HYPR(KC_GRV) ,KC_MNXT ,_______ ,_______ , /**/ _______ ,_______ ,_______ ,_______  ,_______  ,_______ ,_______ ,
-                                _______ ,_______      ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,_______ ,_______  ,_______
+        XXXXXXX ,KC_F1         ,KC_F2   ,KC_F3         ,KC_F4   ,KC_F5   ,          /**/          KC_F6   ,KC_F7   ,KC_F8    ,KC_F9    ,KC_F10  ,KC_F11  ,
+        XXXXXXX ,HYPR(KC_PMNS) ,XXXXXXX ,XXXXXXX       ,XXXXXXX ,XXXXXXX ,          /**/          KC_HOME ,KC_PGDN ,KC_PGUP  ,KC_END   ,XXXXXXX ,KC_F12  ,
+        XXXXXXX ,KC_PSCR       ,KC_VOLD ,KC_MPLY       ,KC_VOLU ,XXXXXXX ,          /**/          KC_LEFT ,KC_DOWN ,KC_UP    ,KC_RIGHT ,XXXXXXX ,XXXXXXX ,
+        XXXXXXX ,KC_CAPS       ,KC_MPRV ,HYPR(KC_PPLS) ,KC_MNXT ,XXXXXXX ,XXXXXXX , /**/ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX  ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,
+                                XXXXXXX ,XXXXXXX       ,XXXXXXX ,XXXXXXX ,XXXXXXX , /**/ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX  ,XXXXXXX
     ),
     [_SYM] = LAYOUT(
-        _______  ,_______ ,_______  ,URU_NUM  ,_______ ,_______ ,          /**/          _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,
+        XXXXXXX  ,XXXXXXX ,XXXXXXX  ,URU_NUM  ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,
         UEN_GRV  ,KC_EXLM ,UEN_AT   ,UEN_HASH ,UEN_DLR ,KC_PERC ,          /**/          UEN_CIRC ,UEN_AMPR ,KC_ASTR  ,KC_UNDS  ,UEN_PIPE ,UEN_TILD ,
         UEN_QUOT ,KC_1    ,KC_2     ,KC_3     ,KC_4    ,KC_5    ,          /**/          KC_6     ,KC_7     ,KC_8     ,KC_9     ,KC_0     ,U_DQT    ,
-        _______  ,U_QUES  ,UEN_LBRC ,UEN_LCBR ,KC_LPRN ,UEN_LT  ,_______ , /**/ _______ ,UEN_GT   ,KC_RPRN  ,UEN_RCBR ,UEN_RBRC ,U_COMM   ,_______  ,
-                           U_CLN    ,U_SCLN   ,KC_MINS ,KC_EQL  ,KC_PLUS , /**/ _______ ,_______  ,_______  ,U_SLSH   ,KC_BSLS
+        XXXXXXX  ,U_QUES  ,UEN_LBRC ,UEN_LCBR ,KC_LPRN ,UEN_LT  ,XXXXXXX , /**/ XXXXXXX ,UEN_GT   ,KC_RPRN  ,UEN_RCBR ,UEN_RBRC ,U_COMM   ,XXXXXXX  ,
+                           U_CLN    ,U_SCLN   ,KC_MINS ,KC_EQL  ,KC_PLUS , /**/ XXXXXXX ,XXXXXXX  ,XXXXXXX  ,U_SLSH   ,KC_BSLS
     ),
 };
 
@@ -166,11 +166,6 @@ bool handle_layer_tap_oneshot(enum sofle_layers layer, uint16_t oneshot_mods) {
     return false;
 }
 
-bool handle_tap(uint16_t kc) {
-    tap_code16(kc);
-    return false;
-}
-
 bool is_ru(void) {
     return IS_LAYER_ON(_RU_JCUKEN);
 }
@@ -195,16 +190,39 @@ void toggle_lang(void) {
     wait_ms(50);
 }
 
+static bool handle_repeatable_key(uint16_t kc, bool pressed) {
+    if (pressed) {
+        register_code16(kc);
+    } else {
+        unregister_code16(kc);
+    }
+    return false;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     clear_oneshot_layer_state(ONESHOT_PRESSED);
 
     prev_prev_pressed = prev_pressed;
-    prev_pressed      = curr_pressed;
-    curr_pressed      = record->event.pressed;
+    prev_pressed = curr_pressed;
+    curr_pressed = record->event.pressed;
 
     prev_prev_keycode = prev_keycode;
-    prev_keycode      = curr_keycode;
-    curr_keycode      = keycode;
+    prev_keycode = curr_keycode;
+    curr_keycode = keycode;
+
+    static uint16_t u_dot_kc  = KC_NO;
+    static uint16_t u_comm_kc = KC_NO;
+    static uint16_t u_scln_kc = KC_NO;
+    static uint16_t u_cln_kc  = KC_NO;
+    static uint16_t u_dqt_kc  = KC_NO;
+    static uint16_t u_ques_kc = KC_NO;
+    static uint16_t u_slsh_kc = KC_NO;
+    static uint16_t uru_num_kc = KC_NO;
+    static bool     uru_num_switched = false;
+    static uint16_t uen_kc = KC_NO;
+    static bool     uen_switched = false;
+
+    bool lang_en = IS_LAYER_ON(_EN_COLEMAK);
 
     switch (keycode) {
         case KC_MT_LGUI_HYPR:
@@ -215,52 +233,91 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return handle_mod_tap_oneshot(KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));
         case KC_MT_LALT_CGA:
             return handle_mod_tap_oneshot(KC_LALT, MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT));
-    }
 
-    if (curr_pressed) {
-        bool lang_en = IS_LAYER_ON(_EN_COLEMAK);
-        switch (keycode) {
-            case U_DOT: // .
-                return handle_tap(lang_en ? KC_DOT : KC_SLASH);
-            case U_COMM: // ,
-                return handle_tap(lang_en ? KC_COMMA : S(KC_SLASH));
-            case U_SCLN: // ;
-                return handle_tap(lang_en ? KC_SCLN : S(KC_4));
-            case U_CLN: // :
-                return handle_tap(lang_en ? KC_COLON : S(KC_6));
-            case U_DQT: // "
-                return handle_tap(lang_en ? KC_DQT : S(KC_2));
-            case U_QUES: // ?
-                return handle_tap(lang_en ? KC_QUES : S(KC_7));
-            case U_SLSH: // /
-                return handle_tap(lang_en ? KC_SLASH : S(KC_BSLS));
-            case URU_NUM: {
+        case U_DOT:
+            if (curr_pressed) {
+                u_dot_kc = lang_en ? KC_DOT : KC_SLASH;
+            }
+            return handle_repeatable_key(u_dot_kc, curr_pressed);
+
+        case U_COMM:
+            if (curr_pressed) {
+                u_comm_kc = lang_en ? KC_COMMA : S(KC_SLASH);
+            }
+            return handle_repeatable_key(u_comm_kc, curr_pressed);
+
+        case U_SCLN:
+            if (curr_pressed) {
+                u_scln_kc = lang_en ? KC_SCLN : S(KC_4);
+            }
+            return handle_repeatable_key(u_scln_kc, curr_pressed);
+
+        case U_CLN:
+            if (curr_pressed) {
+                u_cln_kc = lang_en ? KC_COLON : S(KC_6);
+            }
+            return handle_repeatable_key(u_cln_kc, curr_pressed);
+
+        case U_DQT:
+            if (curr_pressed) {
+                u_dqt_kc = lang_en ? KC_DQT : S(KC_2);
+            }
+            return handle_repeatable_key(u_dqt_kc, curr_pressed);
+
+        case U_QUES:
+            if (curr_pressed) {
+                u_ques_kc = lang_en ? KC_QUES : S(KC_7);
+            }
+            return handle_repeatable_key(u_ques_kc, curr_pressed);
+
+        case U_SLSH:
+            if (curr_pressed) {
+                u_slsh_kc = lang_en ? KC_SLASH : S(KC_BSLS);
+            }
+            return handle_repeatable_key(u_slsh_kc, curr_pressed);
+
+        /* Russian # key - switches to RU only while held */
+        case URU_NUM:
+            if (curr_pressed) {
                 bool en_before = is_en();
+                uru_num_switched = en_before;
                 if (en_before) {
                     toggle_lang();
                 }
-                tap_code16(S(KC_3));
-                if (en_before) {
+                uru_num_kc = S(KC_3);
+                register_code16(uru_num_kc);
+            } else {
+                unregister_code16(uru_num_kc);
+                if (uru_num_switched) {
                     toggle_lang();
                 }
-                return false;
+                uru_num_switched = false;
+                uru_num_kc = KC_NO;
             }
-            case UEN_LBRC ... UEN_QUOT: {
+            return false;
+
+        /* English symbols that are on Russian layer - switch to EN only while held */
+        case UEN_LBRC ... UEN_QUOT:
+            if (curr_pressed) {
                 bool ru_before = is_ru();
+                uen_switched = ru_before;
                 if (ru_before) {
                     toggle_lang();
                 }
-                tap_code16(en_table[keycode - UEN_LBRC]);
-                if (ru_before) {
+                uen_kc = en_table[keycode - UEN_LBRC];
+                register_code16(uen_kc);
+            } else {
+                unregister_code16(uen_kc);
+                if (uen_switched) {
                     toggle_lang();
                 }
-                return false;
+                uen_switched = false;
+                uen_kc = KC_NO;
             }
-        }
+            return false;
     }
 
-    if ((get_mods() & MOD_MASK_GUI) && (curr_pressed)) {
-        // if (keycode == KC_SPC || keycode == KC_BSPC) {
+    if ((get_mods() & MOD_MASK_GUI) && curr_pressed) {
         if (keycode == KC_SPC) {
             if (is_en()) {
                 to_ru();
@@ -279,6 +336,6 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 void keyboard_post_init_user(void) {
-    wait_ms(100);
+    wait_ms(200);
     to_en();
 }

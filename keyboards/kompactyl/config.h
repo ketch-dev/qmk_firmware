@@ -1,32 +1,34 @@
 #pragma once
 
-// Matrix
+// ========== Matrix ==========
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
 #define MATRIX_ROW_PINS {GP9, GP10, GP11, GP12, GP13}
 #define MATRIX_COL_PINS {GP2, GP3, GP4, GP5, GP6, GP7, GP8}
 #define DIODE_DIRECTION ROW2COL
+// -------------------------------------------------------------------------------
 
-// Transport
+// ========== Transport ==========
 #define MASTER_LEFT
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TX_PIN GP0
 #define SERIAL_USART_RX_PIN GP1
 #define SERIAL_USART_DRIVER SIO0
+// -------------------------------------------------------------------------------
 
-// Keyboard
+// ========== Keyboard ==========
 #define TAPPING_TERM 250
 #define ONESHOT_TIMEOUT 250
 #define ONESHOT_TAP_TOGGLE 0
 #define HOLD_ON_OTHER_KEY_PRESS
 #define QUICK_TAP_TERM 0
+// -------------------------------------------------------------------------------
 
-// Bootmagic
+// ========== Bootmagic ("q" on left and "y" on right) ==========
 #define BOOTMAGIC_ROW 1
 #define BOOTMAGIC_COLUMN 1
+// -------------------------------------------------------------------------------
 
-// Other
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-
 #define SPLIT_USB_TIMEOUT 8000
 #define SPLIT_USB_TIMEOUT_POLL 25
