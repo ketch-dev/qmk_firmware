@@ -91,15 +91,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX ,KC_F1         ,KC_F2   ,KC_F3         ,KC_F4   ,KC_F5   ,          /**/          KC_F6   ,KC_F7   ,KC_F8    ,KC_F9    ,KC_F10  ,KC_F11  ,
         XXXXXXX ,HYPR(KC_PMNS) ,XXXXXXX ,XXXXXXX       ,XXXXXXX ,XXXXXXX ,          /**/          KC_HOME ,KC_PGDN ,KC_PGUP  ,KC_END   ,XXXXXXX ,KC_F12  ,
         XXXXXXX ,KC_PSCR       ,KC_VOLD ,KC_MPLY       ,KC_VOLU ,XXXXXXX ,          /**/          KC_LEFT ,KC_DOWN ,KC_UP    ,KC_RIGHT ,XXXXXXX ,XXXXXXX ,
-        XXXXXXX ,KC_CAPS       ,KC_MPRV ,HYPR(KC_PPLS) ,KC_MNXT ,XXXXXXX ,XXXXXXX , /**/ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX  ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,
-                                XXXXXXX ,XXXXXXX       ,XXXXXXX ,XXXXXXX ,XXXXXXX , /**/ XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX  ,XXXXXXX
+        XXXXXXX ,KC_CAPS       ,KC_MPRV ,HYPR(KC_PPLS) ,KC_MNXT ,XXXXXXX ,_______ , /**/ _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX  ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,
+                                XXXXXXX ,XXXXXXX       ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,_______ ,XXXXXXX  ,XXXXXXX
     ),
     [_SYM] = LAYOUT(
         XXXXXXX  ,XXXXXXX ,XXXXXXX  ,URU_NUM  ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,
         UEN_GRV  ,KC_EXLM ,UEN_AT   ,UEN_HASH ,UEN_DLR ,KC_PERC ,          /**/          UEN_CIRC ,UEN_AMPR ,KC_ASTR  ,KC_UNDS  ,UEN_PIPE ,UEN_TILD ,
         UEN_QUOT ,KC_1    ,KC_2     ,KC_3     ,KC_4    ,KC_5    ,          /**/          KC_6     ,KC_7     ,KC_8     ,KC_9     ,KC_0     ,U_DQT    ,
-        XXXXXXX  ,U_QUES  ,UEN_LBRC ,UEN_LCBR ,KC_LPRN ,UEN_LT  ,XXXXXXX , /**/ XXXXXXX ,UEN_GT   ,KC_RPRN  ,UEN_RCBR ,UEN_RBRC ,U_COMM   ,XXXXXXX  ,
-                           U_CLN    ,U_SCLN   ,KC_MINS ,KC_EQL  ,KC_PLUS , /**/ XXXXXXX ,XXXXXXX  ,XXXXXXX  ,U_SLSH   ,KC_BSLS
+        XXXXXXX  ,U_QUES  ,UEN_LBRC ,UEN_LCBR ,KC_LPRN ,UEN_LT  ,XXXXXXX , /**/ _______ ,UEN_GT   ,KC_RPRN  ,UEN_RCBR ,UEN_RBRC ,U_COMM   ,XXXXXXX  ,
+                           U_CLN    ,U_SCLN   ,KC_MINS ,KC_EQL  ,KC_PLUS , /**/ _______ ,_______  ,_______  ,U_SLSH   ,KC_BSLS
     ),
 };
 

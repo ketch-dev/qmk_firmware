@@ -24,7 +24,7 @@
 #define QUICK_TAP_TERM 0
 // -------------------------------------------------------------------------------
 
-// ========== Bootmagic ("q" on left and "y" on right) ==========
+// ========== Bootmagic (qwerty "q" on left and qwerty "y" on right) ==========
 #define BOOTMAGIC_ROW 1
 #define BOOTMAGIC_COLUMN 1
 // -------------------------------------------------------------------------------
