@@ -26,8 +26,8 @@
 // clang-format on
 
 enum sofle_layers {
-    _EN_COLEMAK,
     _RU_JCUKEN,
+    _EN_GRAPHITE,
     _NAV,
     _SYM,
     _FS,
@@ -38,6 +38,11 @@ enum custom_keycodes {
     KC_MT_CTRL_MEH,
     KC_MT_LSFT_CS,
     KC_MT_LALT_CGA,
+
+    KC_LM_LGUI_HYPR,
+    KC_LM_CTRL_MEH,
+    KC_LM_LSFT_CS,
+    KC_LM_LALT_CGA,
 
     U_DOT,
     U_COMM,
@@ -73,19 +78,19 @@ enum tap_dance {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_EN_COLEMAK] = LAYOUT(
+    [_RU_JCUKEN] = LAYOUT(
+        KC_PSLS    ,KC_1    ,KC_2    ,KC_3    ,KC_4           ,KC_5            ,                /**/                 KC_6    ,KC_7     ,KC_8    ,KC_9    ,KC_0    ,XXXXXXX    ,
+        TD(TD_3_E) ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T            ,                /**/                 KC_Y    ,KC_U     ,KC_I    ,KC_O    ,KC_P    ,TD(TD_X_b) ,
+        KC_ESC     ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G            ,                /**/                 KC_H    ,KC_J     ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT     ,
+        KC_PPLS    ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B            ,KC_PCMM       , /**/ KC_LM_LALT_CGA ,KC_N    ,KC_M     ,KC_COMM ,KC_DOT  ,U_DOT   ,XXXXXXX    ,
+                             KC_TAB  ,KC_BSPC ,KC_LM_LGUI_HYPR ,KC_LM_CTRL_MEH ,KC_LM_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
+    ),
+    [_EN_GRAPHITE] = LAYOUT(
         KC_PSLS  ,KC_1    ,KC_2   ,KC_3    ,KC_4            ,KC_5           ,                /**/                 KC_6    ,KC_7     ,KC_8    ,KC_9    ,KC_0   ,XXXXXXX ,
         KC_PAST  ,KC_PMNS ,KC_X   ,KC_M    ,KC_W            ,KC_V           ,                /**/                 KC_K    ,KC_P     ,KC_J    ,KC_PEQL ,KC_F23 ,XXXXXXX ,
         KC_ESC   ,KC_N    ,KC_L   ,KC_T    ,KC_S            ,KC_G           ,                /**/                 KC_Y    ,KC_H     ,KC_A    ,KC_E    ,KC_I   ,KC_ENT  ,
         KC_PPLS  ,KC_B    ,KC_R   ,KC_D    ,KC_C            ,KC_Z           ,KC_PCMM       , /**/ KC_MT_LALT_CGA ,KC_Q    ,KC_F     ,KC_O    ,KC_U    ,U_DOT  ,XXXXXXX ,
                            KC_TAB ,KC_BSPC ,KC_MT_LGUI_HYPR ,KC_MT_CTRL_MEH ,KC_MT_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
-    ),
-    [_RU_JCUKEN] = LAYOUT(
-        KC_PSLS    ,KC_1    ,KC_2    ,KC_3    ,KC_4           ,KC_5            ,                /**/                 KC_6    ,KC_7     ,KC_8    ,KC_9    ,KC_0    ,XXXXXXX    ,
-        TD(TD_3_E) ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T            ,                /**/                 KC_Y    ,KC_U     ,KC_I    ,KC_O    ,KC_P    ,TD(TD_X_b) ,
-        KC_ESC     ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G            ,                /**/                 KC_H    ,KC_J     ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT     ,
-        KC_PPLS    ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B            ,KC_PCMM       , /**/ KC_MT_LALT_CGA ,KC_N    ,KC_M     ,KC_COMM ,KC_DOT  ,U_DOT   ,XXXXXXX    ,
-                             KC_TAB  ,KC_BSPC ,KC_MT_LGUI_HYPR ,KC_MT_CTRL_MEH ,KC_MT_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
     ),
     [_NAV] = LAYOUT(
         XXXXXXX ,KC_F1         ,KC_F2   ,KC_F3         ,KC_F4   ,KC_F5   ,          /**/          KC_F6   ,KC_F7   ,KC_F8    ,KC_F9    ,KC_F10  ,KC_F11  ,
@@ -130,34 +135,18 @@ uint16_t en_table[] = {
     KC_QUOT, // UEN_QUOT
 };
 
-bool handle_mod_tap_oneshot(uint16_t mt_key, uint16_t oneshot_mods) {
+bool handle_mod_tap_oneshot(int16_t target_layer, uint16_t mt_key, uint16_t oneshot_mods) {
     static uint16_t timer;
     bool            allow_mods = prev_keycode == curr_keycode && prev_pressed;
     clear_oneshot_mods();
 
     if (curr_pressed) {
         timer = timer_read();
+        if (target_layer >= 0) layer_on(target_layer);
         register_code(mt_key);
     } else {
         unregister_code(mt_key);
-
-        if (allow_mods && timer_elapsed(timer) < TAPPING_TERM) {
-            add_oneshot_mods(oneshot_mods);
-        }
-    }
-    return false;
-}
-
-bool handle_layer_tap_oneshot(enum sofle_layers layer, uint16_t oneshot_mods) {
-    static uint16_t timer;
-    bool            allow_mods = prev_keycode == curr_keycode && prev_pressed;
-    clear_oneshot_mods();
-
-    if (curr_pressed) {
-        timer = timer_read();
-        layer_on(layer);
-    } else {
-        layer_off(layer);
+        if (target_layer >= 0) layer_off(target_layer);
 
         if (allow_mods && timer_elapsed(timer) < TAPPING_TERM) {
             add_oneshot_mods(oneshot_mods);
@@ -167,19 +156,19 @@ bool handle_layer_tap_oneshot(enum sofle_layers layer, uint16_t oneshot_mods) {
 }
 
 bool is_ru(void) {
-    return IS_LAYER_ON(_RU_JCUKEN);
+    return (default_layer_state & (1UL << _RU_JCUKEN)) != 0;
 }
 
 bool is_en(void) {
-    return IS_LAYER_ON(_EN_COLEMAK);
+    return (default_layer_state & (1UL << _EN_GRAPHITE)) != 0;
 }
 
 void to_ru(void) {
-    layer_move(_RU_JCUKEN);
+    set_single_default_layer(_RU_JCUKEN);
 }
 
 void to_en(void) {
-    layer_move(_EN_COLEMAK);
+    set_single_default_layer(_EN_GRAPHITE);
 }
 
 void toggle_lang(void) {
@@ -222,57 +211,64 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t uen_kc = KC_NO;
     static bool     uen_switched = false;
 
-    bool lang_en = IS_LAYER_ON(_EN_COLEMAK);
-
     switch (keycode) {
         case KC_MT_LGUI_HYPR:
-            return handle_mod_tap_oneshot(KC_LGUI, MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
+            return handle_mod_tap_oneshot(-1, KC_LGUI, MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
         case KC_MT_CTRL_MEH:
-            return handle_mod_tap_oneshot(KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
+            return handle_mod_tap_oneshot(-1, KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
         case KC_MT_LSFT_CS:
-            return handle_mod_tap_oneshot(KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));
+            return handle_mod_tap_oneshot(-1, KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));
         case KC_MT_LALT_CGA:
-            return handle_mod_tap_oneshot(KC_LALT, MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT));
+            return handle_mod_tap_oneshot(-1, KC_LALT, MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT));
+
+        case KC_LM_LGUI_HYPR:
+            return handle_mod_tap_oneshot(_EN_GRAPHITE, KC_LGUI, MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
+        case KC_LM_CTRL_MEH:
+            return handle_mod_tap_oneshot(_EN_GRAPHITE, KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
+        case KC_LM_LSFT_CS:
+            return handle_mod_tap_oneshot(_EN_GRAPHITE, KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));
+        case KC_LM_LALT_CGA:
+            return handle_mod_tap_oneshot(_EN_GRAPHITE, KC_LALT, MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT));
 
         case U_DOT:
             if (curr_pressed) {
-                u_dot_kc = lang_en ? KC_DOT : KC_SLASH;
+                u_dot_kc = is_en() ? KC_DOT : KC_SLASH;
             }
             return handle_repeatable_key(u_dot_kc, curr_pressed);
 
         case U_COMM:
             if (curr_pressed) {
-                u_comm_kc = lang_en ? KC_COMMA : S(KC_SLASH);
+                u_comm_kc = is_en() ? KC_COMMA : S(KC_SLASH);
             }
             return handle_repeatable_key(u_comm_kc, curr_pressed);
 
         case U_SCLN:
             if (curr_pressed) {
-                u_scln_kc = lang_en ? KC_SCLN : S(KC_4);
+                u_scln_kc = is_en() ? KC_SCLN : S(KC_4);
             }
             return handle_repeatable_key(u_scln_kc, curr_pressed);
 
         case U_CLN:
             if (curr_pressed) {
-                u_cln_kc = lang_en ? KC_COLON : S(KC_6);
+                u_cln_kc = is_en() ? KC_COLON : S(KC_6);
             }
             return handle_repeatable_key(u_cln_kc, curr_pressed);
 
         case U_DQT:
             if (curr_pressed) {
-                u_dqt_kc = lang_en ? KC_DQT : S(KC_2);
+                u_dqt_kc = is_en() ? KC_DQT : S(KC_2);
             }
             return handle_repeatable_key(u_dqt_kc, curr_pressed);
 
         case U_QUES:
             if (curr_pressed) {
-                u_ques_kc = lang_en ? KC_QUES : S(KC_7);
+                u_ques_kc = is_en() ? KC_QUES : S(KC_7);
             }
             return handle_repeatable_key(u_ques_kc, curr_pressed);
 
         case U_SLSH:
             if (curr_pressed) {
-                u_slsh_kc = lang_en ? KC_SLASH : S(KC_BSLS);
+                u_slsh_kc = is_en() ? KC_SLASH : S(KC_BSLS);
             }
             return handle_repeatable_key(u_slsh_kc, curr_pressed);
 
@@ -321,7 +317,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (keycode == KC_SPC) {
             if (is_en()) {
                 to_ru();
-            } else if (is_ru()) {
+            } else {
                 to_en();
             }
         }
