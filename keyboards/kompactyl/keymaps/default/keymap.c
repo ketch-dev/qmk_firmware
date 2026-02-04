@@ -155,6 +155,28 @@ bool handle_mod_tap_oneshot(int16_t target_layer, uint16_t mt_key, uint16_t ones
     return false;
 }
 
+bool handle_mod_tap_oneshot_set_layer_on_release(int16_t oneshot_layer, uint16_t mt_key, uint16_t oneshot_mods) {
+    static uint16_t timer;
+    bool            allow_mods = prev_keycode == curr_keycode && prev_pressed;
+    clear_oneshot_mods();
+
+    if (curr_pressed) {
+        timer = timer_read();
+        register_code(mt_key);
+    } else {
+        unregister_code(mt_key);
+
+        if (allow_mods && timer_elapsed(timer) < TAPPING_TERM) {
+            add_oneshot_mods(oneshot_mods);
+            if (oneshot_layer >= 0) {
+                set_oneshot_layer(oneshot_layer, ONESHOT_START);
+                clear_oneshot_layer_state(ONESHOT_PRESSED);
+            }
+        }
+    }
+    return false;
+}
+
 bool is_ru(void) {
     return (default_layer_state & (1UL << _RU_JCUKEN)) != 0;
 }
@@ -226,7 +248,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LM_CTRL_MEH:
             return handle_mod_tap_oneshot(_EN_GRAPHITE, KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
         case KC_LM_LSFT_CS:
-            return handle_mod_tap_oneshot(_EN_GRAPHITE, KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));
+            return handle_mod_tap_oneshot_set_layer_on_release(_EN_GRAPHITE, KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));
         case KC_LM_LALT_CGA:
             return handle_mod_tap_oneshot(_EN_GRAPHITE, KC_LALT, MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT));
 
