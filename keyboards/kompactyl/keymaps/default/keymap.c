@@ -100,11 +100,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 XXXXXXX ,XXXXXXX       ,_______ ,_______ ,_______ , /**/ _______ ,_______ ,_______ ,XXXXXXX  ,XXXXXXX
     ),
     [_SYM] = LAYOUT(
-        XXXXXXX  ,XXXXXXX ,XXXXXXX  ,URU_NUM  ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,
-        UEN_GRV  ,KC_EXLM ,UEN_AT   ,UEN_HASH ,UEN_DLR ,KC_PERC ,          /**/          UEN_CIRC ,UEN_AMPR ,KC_ASTR  ,KC_UNDS  ,UEN_PIPE ,UEN_TILD ,
-        UEN_QUOT ,KC_1    ,KC_2     ,KC_3     ,KC_4    ,KC_5    ,          /**/          KC_6     ,KC_7     ,KC_8     ,KC_9     ,KC_0     ,U_DQT    ,
-        XXXXXXX  ,U_QUES  ,UEN_LBRC ,UEN_LCBR ,KC_LPRN ,UEN_LT  ,XXXXXXX , /**/ _______ ,UEN_GT   ,KC_RPRN  ,UEN_RCBR ,UEN_RBRC ,U_COMM   ,XXXXXXX  ,
-                           U_CLN    ,U_SCLN   ,KC_MINS ,KC_EQL  ,KC_PLUS , /**/ _______ ,_______  ,_______  ,U_SLSH   ,KC_BSLS
+        XXXXXXX ,XXXXXXX ,XXXXXXX  ,URU_NUM  ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX ,
+        XXXXXXX ,XXXXXXX ,UEN_AT   ,UEN_HASH ,UEN_DLR ,KC_PERC ,          /**/          UEN_CIRC ,UEN_AMPR ,KC_ASTR  ,KC_UNDS  ,XXXXXXX  ,XXXXXXX ,
+        XXXXXXX ,U_QUES  ,UEN_LBRC ,UEN_LCBR ,KC_LPRN ,UEN_LT  ,          /**/          UEN_GT   ,KC_RPRN  ,UEN_RCBR ,UEN_RBRC ,UEN_TILD ,XXXXXXX ,
+        XXXXXXX ,XXXXXXX ,KC_MINS  ,KC_PLUS  ,KC_EQL  ,KC_EXLM ,XXXXXXX , /**/ _______ ,UEN_GRV  ,UEN_QUOT ,U_DQT    ,UEN_PIPE ,U_COMM   ,XXXXXXX ,
+                          U_CLN    ,U_SCLN   ,_______ ,_______ ,_______ , /**/ _______ ,_______  ,_______  ,U_SLSH   ,KC_BSLS
     ),
 };
 
