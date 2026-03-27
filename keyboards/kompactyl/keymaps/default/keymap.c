@@ -71,18 +71,13 @@ enum custom_keycodes {
     UEN_QUOT,
 };
 
-enum tap_dance {
-    TD_3_E,
-    TD_X_b,
-};
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RU_JCUKEN] = LAYOUT(
-        KC_PSLS    ,KC_1    ,KC_2    ,KC_3    ,KC_4           ,KC_5            ,                /**/                 KC_6    ,KC_7     ,KC_8    ,KC_9    ,KC_0    ,XXXXXXX    ,
-        TD(TD_3_E) ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T            ,                /**/                 KC_Y    ,KC_U     ,KC_I    ,KC_O    ,KC_P    ,TD(TD_X_b) ,
-        KC_ESC     ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G            ,                /**/                 KC_H    ,KC_J     ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT     ,
-        KC_PPLS    ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B            ,KC_PCMM       , /**/ KC_LM_LALT_CGA ,KC_N    ,KC_M     ,KC_COMM ,KC_DOT  ,U_DOT   ,XXXXXXX    ,
+        KC_PSLS ,KC_1    ,KC_2    ,KC_3    ,KC_QUOT        ,KC_GRV          ,                /**/                 KC_LBRC ,KC_RBRC  ,KC_8    ,KC_9    ,KC_0    ,XXXXXXX ,
+        KC_PAST ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T            ,                /**/                 KC_Y    ,KC_U     ,KC_I    ,KC_O    ,KC_P    ,XXXXXXX ,
+        KC_ESC  ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G            ,                /**/                 KC_H    ,KC_J     ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
+        KC_PPLS ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B            ,KC_PCMM       , /**/ KC_LM_LALT_CGA ,KC_N    ,KC_M     ,KC_COMM ,KC_DOT  ,U_DOT   ,XXXXXXX ,
                              KC_TAB  ,KC_BSPC ,KC_LM_LGUI_HYPR ,KC_LM_CTRL_MEH ,KC_LM_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
     ),
     [_EN_GRAPHITE] = LAYOUT(
@@ -347,11 +342,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     return true;
 }
-
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_3_E] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_GRV),
-    [TD_X_b] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
-};
 
 void keyboard_post_init_user(void) {
     wait_ms(200);
