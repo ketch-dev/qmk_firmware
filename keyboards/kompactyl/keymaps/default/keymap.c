@@ -74,17 +74,17 @@ enum custom_keycodes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RU_JCUKEN] = LAYOUT(
-        KC_PSLS ,KC_1    ,KC_2    ,KC_3    ,KC_QUOT        ,KC_GRV          ,                /**/                 KC_LBRC ,KC_RBRC  ,KC_8    ,KC_9    ,KC_0    ,XXXXXXX ,
+        KC_PSLS ,KC_F1   ,KC_F2   ,KC_F3   ,KC_QUOT        ,KC_GRV          ,                /**/                 KC_LBRC ,KC_RBRC  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
         KC_PAST ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T            ,                /**/                 KC_Y    ,KC_U     ,KC_I    ,KC_O    ,KC_P    ,XXXXXXX ,
         KC_ESC  ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G            ,                /**/                 KC_H    ,KC_J     ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
         KC_PPLS ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B            ,KC_PCMM       , /**/ KC_LM_LALT_CGA ,KC_N    ,KC_M     ,KC_COMM ,KC_DOT  ,U_DOT   ,XXXXXXX ,
-                             KC_TAB  ,KC_BSPC ,KC_LM_LGUI_HYPR ,KC_LM_CTRL_MEH ,KC_LM_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
+                          KC_TAB  ,KC_BSPC ,KC_LM_LGUI_HYPR ,KC_LM_CTRL_MEH ,KC_LM_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
     ),
     [_EN_GRAPHITE] = LAYOUT(
-        KC_PSLS  ,KC_1    ,KC_2   ,KC_3    ,KC_4            ,KC_5           ,                /**/                 KC_6    ,KC_7     ,KC_8    ,KC_9    ,KC_0   ,XXXXXXX ,
-        KC_PAST  ,KC_PMNS ,KC_X   ,KC_M    ,KC_W            ,KC_V           ,                /**/                 KC_K    ,KC_P     ,KC_J    ,KC_PEQL ,KC_F23 ,XXXXXXX ,
-        KC_ESC   ,KC_N    ,KC_L   ,KC_T    ,KC_S            ,KC_G           ,                /**/                 KC_Y    ,KC_H     ,KC_A    ,KC_E    ,KC_I   ,KC_ENT  ,
-        KC_PPLS  ,KC_B    ,KC_R   ,KC_D    ,KC_C            ,KC_Z           ,KC_PCMM       , /**/ KC_MT_LALT_CGA ,KC_Q    ,KC_F     ,KC_O    ,KC_U    ,U_DOT  ,XXXXXXX ,
+        KC_PSLS  ,KC_F1   ,KC_F2  ,KC_F3   ,KC_F4           ,KC_F5          ,                /**/                 XXXXXXX ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+        KC_PAST  ,KC_PMNS ,KC_X   ,KC_M    ,KC_W            ,KC_V           ,                /**/                 KC_K    ,KC_P     ,KC_J    ,KC_PEQL ,XXXXXXX ,XXXXXXX ,
+        KC_ESC   ,KC_N    ,KC_L   ,KC_T    ,KC_S            ,KC_G           ,                /**/                 KC_Y    ,KC_H     ,KC_A    ,KC_E    ,KC_I    ,KC_ENT  ,
+        KC_PPLS  ,KC_B    ,KC_R   ,KC_D    ,KC_C            ,KC_Z           ,KC_PCMM       , /**/ KC_MT_LALT_CGA ,KC_Q    ,KC_F     ,KC_O    ,KC_U    ,U_DOT   ,XXXXXXX ,
                            KC_TAB ,KC_BSPC ,KC_MT_LGUI_HYPR ,KC_MT_CTRL_MEH ,KC_MT_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
     ),
     [_NAV] = LAYOUT(
