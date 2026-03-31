@@ -81,15 +81,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_TAB  ,KC_BSPC ,KC_LM_LGUI_HYPR ,KC_LM_CTRL_MEH ,KC_LM_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
     ),
     [_EN_GRAPHITE] = LAYOUT(
-        KC_PSLS  ,KC_F1   ,KC_F2  ,KC_F3   ,KC_F4           ,KC_F5          ,                /**/                 XXXXXXX ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
-        KC_PAST  ,KC_PMNS ,KC_X   ,KC_M    ,KC_W            ,KC_V           ,                /**/                 KC_K    ,KC_P     ,KC_J    ,KC_PEQL ,XXXXXXX ,XXXXXXX ,
+        KC_PSLS  ,KC_F1   ,KC_F2  ,KC_F3   ,KC_F4           ,KC_F5          ,                /**/                 KC_F6   ,KC_F7    ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,
+        KC_PAST  ,KC_PMNS ,KC_X   ,KC_M    ,KC_W            ,KC_V           ,                /**/                 KC_K    ,KC_P     ,KC_J    ,KC_PEQL ,XXXXXXX ,KC_F12  ,
         KC_ESC   ,KC_N    ,KC_L   ,KC_T    ,KC_S            ,KC_G           ,                /**/                 KC_Y    ,KC_H     ,KC_A    ,KC_E    ,KC_I    ,KC_ENT  ,
         KC_PPLS  ,KC_B    ,KC_R   ,KC_D    ,KC_C            ,KC_Z           ,KC_PCMM       , /**/ KC_MT_LALT_CGA ,KC_Q    ,KC_F     ,KC_O    ,KC_U    ,U_DOT   ,XXXXXXX ,
                            KC_TAB ,KC_BSPC ,KC_MT_LGUI_HYPR ,KC_MT_CTRL_MEH ,KC_MT_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
     ),
     [_NAV] = LAYOUT(
-        XXXXXXX ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5         ,          /**/          KC_F6   ,KC_F7   ,KC_F8    ,KC_F9         ,KC_F10  ,KC_F11  ,
-        XXXXXXX ,XXXXXXX ,KC_1    ,KC_2    ,KC_3    ,HYPR(KC_PAST) ,          /**/          KC_HOME ,KC_PGDN ,KC_PGUP  ,KC_END        ,XXXXXXX ,KC_F12  ,
+        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX       ,          /**/          XXXXXXX ,XXXXXXX ,XXXXXXX  ,XXXXXXX       ,XXXXXXX ,XXXXXXX ,
+        XXXXXXX ,XXXXXXX ,KC_1    ,KC_2    ,KC_3    ,HYPR(KC_PAST) ,          /**/          KC_HOME ,KC_PGDN ,KC_PGUP  ,KC_END        ,XXXXXXX ,XXXXXXX ,
         XXXXXXX ,KC_PSCR ,KC_4    ,KC_5    ,KC_6    ,HYPR(KC_PMNS) ,          /**/          KC_LEFT ,KC_DOWN ,KC_UP    ,KC_RIGHT      ,XXXXXXX ,XXXXXXX ,
         XXXXXXX ,KC_CAPS ,KC_7    ,KC_8    ,KC_9    ,HYPR(KC_PPLS) ,_______ , /**/ _______ ,XXXXXXX ,XXXXXXX ,KC_MPLY  ,HYPR(KC_PSLS) ,XXXXXXX ,XXXXXXX ,
                           KC_MPRV ,KC_VOLD ,_______ ,KC_0          ,_______ , /**/ _______ ,_______ ,_______ ,KC_VOLU  ,KC_MNXT
