@@ -30,5 +30,6 @@
 // -------------------------------------------------------------------------------
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define SPLIT_USB_TIMEOUT 8000
+#define SPLIT_USB_TIMEOUT 2000
 #define SPLIT_USB_TIMEOUT_POLL 25
+#define SPLIT_WATCHDOG_ENABLE
