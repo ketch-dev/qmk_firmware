@@ -69,13 +69,18 @@ enum custom_keycodes {
     UEN_AMPR,
     UEN_PIPE,
     UEN_QUOT,
+
+    RU_LBRC,
+    RU_RBRC,
+    RU_QUOT,
+    RU_GRV,
 };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RU_JCUKEN] = LAYOUT(
-        KC_PSLS ,KC_F1   ,KC_F2   ,KC_F3   ,KC_QUOT        ,KC_GRV          ,                /**/                 KC_LBRC ,KC_RBRC  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
-        KC_PAST ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T            ,                /**/                 KC_Y    ,KC_U     ,KC_I    ,KC_O    ,KC_P    ,XXXXXXX ,
+        KC_PSLS ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4          ,KC_F5           ,                /**/                 KC_F6   ,KC_F7    ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,
+        KC_PAST ,KC_Q    ,KC_W    ,KC_E    ,KC_R           ,KC_T            ,                /**/                 KC_Y    ,KC_U     ,KC_I    ,KC_O    ,KC_P    ,KC_F12 ,
         KC_ESC  ,KC_A    ,KC_S    ,KC_D    ,KC_F           ,KC_G            ,                /**/                 KC_H    ,KC_J     ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
         KC_PPLS ,KC_Z    ,KC_X    ,KC_C    ,KC_V           ,KC_B            ,KC_PCMM       , /**/ KC_LM_LALT_CGA ,KC_N    ,KC_M     ,KC_COMM ,KC_DOT  ,U_DOT   ,XXXXXXX ,
                           KC_TAB  ,KC_BSPC ,KC_LM_LGUI_HYPR ,KC_LM_CTRL_MEH ,KC_LM_LSFT_CS , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
@@ -98,8 +103,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX ,XXXXXXX ,XXXXXXX  ,URU_NUM  ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX ,
         XXXXXXX ,XXXXXXX ,UEN_AT   ,UEN_HASH ,UEN_DLR ,KC_PERC ,          /**/          UEN_CIRC ,UEN_AMPR ,KC_ASTR  ,KC_UNDS  ,XXXXXXX  ,XXXXXXX ,
         XXXXXXX ,U_QUES  ,UEN_LBRC ,UEN_LCBR ,KC_LPRN ,UEN_LT  ,          /**/          UEN_GT   ,KC_RPRN  ,UEN_RCBR ,UEN_RBRC ,UEN_TILD ,XXXXXXX ,
-        XXXXXXX ,XXXXXXX ,KC_MINS  ,KC_PLUS  ,KC_EQL  ,KC_EXLM ,XXXXXXX , /**/ _______ ,UEN_GRV  ,UEN_QUOT ,U_DQT    ,UEN_PIPE ,U_COMM   ,XXXXXXX ,
-                          U_CLN    ,U_SCLN   ,_______ ,_______ ,_______ , /**/ _______ ,_______  ,_______  ,U_SLSH   ,KC_BSLS
+        XXXXXXX ,XXXXXXX ,KC_MINS  ,KC_PLUS  ,KC_EQL  ,KC_EXLM ,RU_RBRC , /**/ _______ ,UEN_GRV  ,UEN_QUOT ,U_DQT    ,UEN_PIPE ,U_COMM   ,XXXXXXX ,
+                          U_CLN    ,U_SCLN   ,RU_QUOT ,RU_LBRC ,RU_GRV , /**/ _______ ,_______  ,_______  ,U_SLSH   ,KC_BSLS
     ),
 };
 
@@ -197,6 +202,10 @@ void toggle_lang(void) {
 }
 
 static bool handle_repeatable_key(uint16_t kc, bool pressed) {
+    if (kc == KC_NO) {
+        return false;
+    }
+
     if (pressed) {
         register_code16(kc);
     } else {
@@ -227,6 +236,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool     uru_num_switched = false;
     static uint16_t uen_kc = KC_NO;
     static bool     uen_switched = false;
+    static uint16_t ru_lbrc_kc = KC_NO;
+    static uint16_t ru_rbrc_kc = KC_NO;
+    static uint16_t ru_quot_kc = KC_NO;
+    static uint16_t ru_grv_kc  = KC_NO;
 
     switch (keycode) {
         case KC_MT_LGUI_HYPR:
@@ -288,6 +301,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 u_slsh_kc = is_en() ? KC_SLASH : S(KC_BSLS);
             }
             return handle_repeatable_key(u_slsh_kc, curr_pressed);
+
+        case RU_LBRC:
+            if (curr_pressed) {
+                ru_lbrc_kc = is_ru() ? KC_LBRC : KC_NO;
+            }
+            return handle_repeatable_key(ru_lbrc_kc, curr_pressed);
+
+        case RU_RBRC:
+            if (curr_pressed) {
+                ru_rbrc_kc = is_ru() ? KC_RBRC : KC_NO;
+            }
+            return handle_repeatable_key(ru_rbrc_kc, curr_pressed);
+
+        case RU_QUOT:
+            if (curr_pressed) {
+                ru_quot_kc = is_ru() ? KC_QUOT : KC_NO;
+            }
+            return handle_repeatable_key(ru_quot_kc, curr_pressed);
+
+        case RU_GRV:
+            if (curr_pressed) {
+                ru_grv_kc = is_ru() ? KC_GRV : KC_NO;
+            }
+            return handle_repeatable_key(ru_grv_kc, curr_pressed);
 
         /* Russian # key - switches to RU only while held */
         case URU_NUM:
