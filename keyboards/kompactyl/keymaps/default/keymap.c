@@ -35,13 +35,9 @@ enum sofle_layers {
 
 enum custom_keycodes {
     KC_MT_LGUI_HYPR = SAFE_RANGE,
-    KC_MT_CTRL_MEH,
-    KC_MT_LSFT_CS,
     KC_MT_LALT_CGA,
 
     KC_LM_LGUI_HYPR,
-    KC_LM_CTRL_MEH, // not used
-    KC_LM_LSFT_CS, // not used
     KC_LM_LALT_CGA,
 
     U_DOT,
@@ -83,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PAST ,KC_Q    ,KC_W    ,KC_E    ,KC_R            ,KC_T    ,          /**/                 KC_Y    ,KC_U     ,KC_I    ,KC_O    ,KC_P    ,KC_F12 ,
         KC_ESC  ,KC_A    ,KC_S    ,KC_D    ,KC_F            ,KC_G    ,          /**/                 KC_H    ,KC_J     ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
         KC_PPLS ,KC_Z    ,KC_X    ,KC_C    ,KC_V            ,KC_B    ,KC_PCMM , /**/ KC_LM_LALT_CGA ,KC_N    ,KC_M     ,KC_COMM ,KC_DOT  ,U_DOT   ,XXXXXXX ,
-                          KC_TAB  ,KC_BSPC ,KC_LM_LGUI_HYPR ,KC_LCTL ,KC_LSFT , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
+                          KC_TAB  ,KC_BSPC ,KC_LM_LGUI_HYPR ,LM(_EN_GRAPHITE, MOD_LCTL) ,KC_LSFT , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
     ),
     [_EN_GRAPHITE] = LAYOUT(
         KC_PSLS  ,KC_F1   ,KC_F2  ,KC_F3   ,KC_F4           ,KC_F5   ,          /**/                 KC_F6   ,KC_F7    ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,
@@ -150,28 +146,6 @@ bool handle_mod_tap_oneshot(int16_t target_layer, uint16_t mt_key, uint16_t ones
 
         if (allow_mods && timer_elapsed(timer) < TAPPING_TERM) {
             add_oneshot_mods(oneshot_mods);
-        }
-    }
-    return false;
-}
-
-bool handle_mod_tap_oneshot_set_layer_on_release(int16_t oneshot_layer, uint16_t mt_key, uint16_t oneshot_mods) {
-    static uint16_t timer;
-    bool            allow_mods = prev_keycode == curr_keycode && prev_pressed;
-    clear_oneshot_mods();
-
-    if (curr_pressed) {
-        timer = timer_read();
-        register_code(mt_key);
-    } else {
-        unregister_code(mt_key);
-
-        if (allow_mods && timer_elapsed(timer) < TAPPING_TERM) {
-            add_oneshot_mods(oneshot_mods);
-            if (oneshot_layer >= 0) {
-                set_oneshot_layer(oneshot_layer, ONESHOT_START);
-                clear_oneshot_layer_state(ONESHOT_PRESSED);
-            }
         }
     }
     return false;
@@ -245,19 +219,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_MT_LGUI_HYPR:
             return handle_mod_tap_oneshot(-1, KC_LGUI, MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
-        case KC_MT_CTRL_MEH:
-            return handle_mod_tap_oneshot(-1, KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
-        case KC_MT_LSFT_CS:
-            return handle_mod_tap_oneshot(-1, KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));
         case KC_MT_LALT_CGA:
             return handle_mod_tap_oneshot(-1, KC_LALT, MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT));
 
         case KC_LM_LGUI_HYPR:
             return handle_mod_tap_oneshot(_EN_GRAPHITE, KC_LGUI, MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
-        case KC_LM_CTRL_MEH:
-            return handle_mod_tap_oneshot(_EN_GRAPHITE, KC_LCTL, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
-        case KC_LM_LSFT_CS:
-            return handle_mod_tap_oneshot_set_layer_on_release(_EN_GRAPHITE, KC_LSFT, MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));
         case KC_LM_LALT_CGA:
             return handle_mod_tap_oneshot(_EN_GRAPHITE, KC_LALT, MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT));
 
