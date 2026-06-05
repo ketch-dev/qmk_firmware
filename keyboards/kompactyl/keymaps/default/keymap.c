@@ -90,17 +90,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_NAV] = LAYOUT(
         XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX       ,          /**/          XXXXXXX ,XXXXXXX ,XXXXXXX  ,XXXXXXX       ,XXXXXXX ,XXXXXXX ,
-        XXXXXXX ,XXXXXXX ,KC_1    ,KC_2    ,KC_3    ,HYPR(KC_PAST) ,          /**/          KC_HOME ,KC_PGDN ,KC_PGUP  ,KC_END        ,XXXXXXX ,XXXXXXX ,
-        XXXXXXX ,KC_PSCR ,KC_4    ,KC_5    ,KC_6    ,HYPR(KC_PMNS) ,          /**/          KC_LEFT ,KC_DOWN ,KC_UP    ,KC_RIGHT      ,XXXXXXX ,XXXXXXX ,
-        XXXXXXX ,KC_CAPS ,KC_7    ,KC_8    ,KC_9    ,HYPR(KC_PPLS) ,_______ , /**/ _______ ,XXXXXXX ,XXXXXXX ,KC_MPLY  ,HYPR(KC_PSLS) ,XXXXXXX ,XXXXXXX ,
-                          KC_MPRV ,KC_VOLD ,_______ ,KC_0          ,_______ , /**/ _______ ,_______ ,_______ ,KC_VOLU  ,KC_MNXT
+        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,HYPR(KC_PAST) ,          /**/          KC_HOME ,KC_PGDN ,KC_PGUP  ,KC_END        ,XXXXXXX ,XXXXXXX ,
+        XXXXXXX ,KC_PSCR ,XXXXXXX ,XXXXXXX ,XXXXXXX ,HYPR(KC_PMNS) ,          /**/          KC_LEFT ,KC_DOWN ,KC_UP    ,KC_RIGHT      ,XXXXXXX ,XXXXXXX ,
+        XXXXXXX ,KC_CAPS ,XXXXXXX ,XXXXXXX ,XXXXXXX ,HYPR(KC_PPLS) ,_______ , /**/ _______ ,XXXXXXX ,XXXXXXX ,KC_MPLY  ,HYPR(KC_PSLS) ,XXXXXXX ,XXXXXXX ,
+                          KC_MPRV ,KC_VOLD ,_______ ,_______       ,_______ , /**/ _______ ,_______ ,_______ ,KC_VOLU  ,KC_MNXT
     ),
     [_SYM] = LAYOUT(
-        XXXXXXX ,XXXXXXX ,XXXXXXX  ,URU_NUM  ,XXXXXXX ,XXXXXXX ,          /**/          XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX ,
-        XXXXXXX ,XXXXXXX ,UEN_AT   ,UEN_HASH ,UEN_DLR ,KC_PERC ,          /**/          UEN_CIRC ,UEN_AMPR ,KC_ASTR  ,KC_UNDS  ,XXXXXXX  ,XXXXXXX ,
-        XXXXXXX ,U_QUES  ,UEN_LBRC ,UEN_LCBR ,KC_LPRN ,UEN_LT  ,          /**/          UEN_GT   ,KC_RPRN  ,UEN_RCBR ,UEN_RBRC ,UEN_TILD ,XXXXXXX ,
-        XXXXXXX ,XXXXXXX ,KC_MINS  ,KC_PLUS  ,KC_EQL  ,KC_EXLM ,RU_RBRC , /**/ _______ ,UEN_GRV  ,UEN_QUOT ,U_DQT    ,UEN_PIPE ,U_COMM   ,XXXXXXX ,
-                          U_CLN    ,U_SCLN   ,RU_QUOT ,RU_LBRC ,RU_GRV , /**/ _______ ,_______  ,_______  ,U_SLSH   ,KC_BSLS
+        XXXXXXX ,XXXXXXX ,XXXXXXX  ,URU_NUM  ,RU_QUOT ,RU_LBRC ,          /**/          RU_GRV   ,RU_RBRC  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,
+        UEN_CIRC,UEN_TILD,UEN_AMPR ,KC_MINS  ,KC_EQL  ,KC_PLUS ,          /**/          UEN_GRV  ,UEN_QUOT ,U_DQT    ,UEN_PIPE ,UEN_AT  ,UEN_DLR ,
+        UEN_HASH,KC_1    ,KC_2     ,KC_3     ,KC_4    ,KC_5    ,          /**/          KC_6     ,KC_7     ,KC_8     ,KC_9     ,KC_0    ,KC_PERC ,
+        XXXXXXX ,KC_ASTR ,UEN_LBRC ,UEN_LCBR ,KC_LPRN ,UEN_LT  ,XXXXXXX , /**/ XXXXXXX ,UEN_GT   ,KC_RPRN  ,UEN_RCBR ,UEN_RBRC ,U_COMM  ,XXXXXXX ,
+                          U_CLN    ,U_SCLN   ,U_QUES  ,KC_UNDS ,KC_EXLM , /**/ _______ ,_______  ,_______  ,U_SLSH   ,KC_BSLS
     ),
 };
 
