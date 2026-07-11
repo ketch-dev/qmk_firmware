@@ -89,11 +89,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            KC_TAB ,KC_BSPC ,KC_MT_LGUI_HYPR ,KC_LCTL ,KC_LSFT , /**/ MO(_NAV)       ,KC_SPC  ,MO(_SYM) ,KC_DEL  ,XXXXXXX
     ),
     [_NAV] = LAYOUT(
-        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX       ,          /**/          XXXXXXX ,XXXXXXX ,XXXXXXX  ,XXXXXXX       ,XXXXXXX ,XXXXXXX ,
-        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,HYPR(KC_PAST) ,          /**/          KC_HOME ,KC_PGDN ,KC_PGUP  ,KC_END        ,XXXXXXX ,XXXXXXX ,
-        XXXXXXX ,KC_PSCR ,XXXXXXX ,XXXXXXX ,XXXXXXX ,HYPR(KC_PMNS) ,          /**/          KC_LEFT ,KC_DOWN ,KC_UP    ,KC_RIGHT      ,XXXXXXX ,XXXXXXX ,
-        XXXXXXX ,KC_CAPS ,XXXXXXX ,XXXXXXX ,XXXXXXX ,HYPR(KC_PPLS) ,_______ , /**/ _______ ,XXXXXXX ,XXXXXXX ,KC_MPLY  ,HYPR(KC_PSLS) ,XXXXXXX ,XXXXXXX ,
-                          KC_MPRV ,KC_VOLD ,_______ ,_______       ,_______ , /**/ _______ ,_______ ,_______ ,KC_VOLU  ,KC_MNXT
+        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX       ,          /**/          XXXXXXX ,XXXXXXX ,XXXXXXX       ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,
+        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,HYPR(KC_PAST) ,          /**/          XXXXXXX ,KC_MPLY ,HYPR(KC_PSLS) ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,
+        XXXXXXX ,KC_PSCR ,XXXXXXX ,XXXXXXX ,XXXXXXX ,HYPR(KC_PMNS) ,          /**/          KC_PGUP ,KC_LEFT ,KC_UP         ,KC_RIGHT ,XXXXXXX ,XXXXXXX ,
+        XXXXXXX ,KC_CAPS ,XXXXXXX ,XXXXXXX ,XXXXXXX ,HYPR(KC_PPLS) ,_______ , /**/ _______ ,KC_PGDN ,KC_HOME ,KC_DOWN       ,KC_END   ,XXXXXXX ,XXXXXXX ,
+                          KC_MPRV ,KC_VOLD ,_______ ,_______       ,_______ , /**/ _______ ,_______ ,_______ ,KC_VOLU       ,KC_MNXT
     ),
     [_SYM] = LAYOUT(
         XXXXXXX ,XXXXXXX ,XXXXXXX  ,URU_NUM  ,RU_QUOT ,RU_LBRC ,          /**/          RU_GRV   ,RU_RBRC  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,
