@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_MPRV ,KC_VOLD ,_______ ,_______       ,_______ , /**/ _______ ,_______ ,_______ ,KC_VOLU       ,KC_MNXT
     ),
     [_SYM] = LAYOUT(
-        XXXXXXX ,XXXXXXX ,XXXXXXX  ,URU_NUM  ,RU_QUOT ,RU_LBRC ,          /**/          RU_GRV   ,RU_RBRC  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,
+        XXXXXXX ,XXXXXXX ,XXXXXXX  ,URU_NUM  ,RU_QUOT ,RU_GRV  ,          /**/          RU_LBRC  ,RU_RBRC  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,
         UEN_CIRC,UEN_TILD,UEN_AMPR ,KC_MINS  ,KC_EQL  ,KC_PLUS ,          /**/          UEN_GRV  ,UEN_QUOT ,U_DQT    ,UEN_PIPE ,UEN_AT  ,UEN_DLR ,
         UEN_HASH,KC_1    ,KC_2     ,KC_3     ,KC_4    ,KC_5    ,          /**/          KC_6     ,KC_7     ,KC_8     ,KC_9     ,KC_0    ,KC_PERC ,
         XXXXXXX ,KC_ASTR ,UEN_LBRC ,UEN_LCBR ,KC_LPRN ,UEN_LT  ,XXXXXXX , /**/ XXXXXXX ,UEN_GT   ,KC_RPRN  ,UEN_RCBR ,UEN_RBRC ,U_COMM  ,XXXXXXX ,
